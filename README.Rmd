@@ -18,6 +18,10 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN status](https://www.r-pkg.org/badges/version/quantileR)](https://CRAN.R-project.org/package=quantileR)
+[![R-CMD-check](https://github.com/Harrison4192/quantileR/workflows/R-CMD-check/badge.svg)](https://github.com/Harrison4192/quantileR/actions)
+`r badger::badge_cran_download("dataCleaner", "grand-total", "blue")`
+`r badger::badge_code_size("Harrison4192/dataCleaner")`
+`r badger::badge_last_commit("Harrison4192/dataCleaner")`
 <!-- badges: end -->
 
 The goal of quantileR is to ...

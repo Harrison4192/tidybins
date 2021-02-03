@@ -12,3 +12,16 @@ LazyData: true
 RoxygenNote: 7.1.1
 URL: https://github.com/Harrison4192/quantileR
 BugReports: https://github.com/Harrison4192/quantileR/issues
+Imports: 
+    magrittr,
+    rstudioapi,
+    dplyr,
+    stringr,
+    tidyselect,
+    purrr,
+    janitor,
+    tibble,
+    rlang,
+    lubridate
+Suggests: 
+    badger
