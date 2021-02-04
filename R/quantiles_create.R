@@ -1,4 +1,4 @@
-quantiles_create <- function(mdb, col, quantile_num = 10){
+quantile_value <- function(mdb, col, quantile_num = 10){
   col <- rlang::ensym(col)
 
   name <- rlang::sym(stringr::str_glue("{rlang::as_name(col)}_v{quantile_num}"))
