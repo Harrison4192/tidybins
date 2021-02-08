@@ -64,6 +64,8 @@ if(!any(c(
 
   }
 
+
+
   if(bucket_type_xgboost){
 
     if(length(multi_cols) == 1){
@@ -107,6 +109,8 @@ if(!any(c(
     }
 
   }
+
+
 
   if(length(multi_cols) == 1){
   .data %>%

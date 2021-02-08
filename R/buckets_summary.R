@@ -1,9 +1,8 @@
-buckets_summary <- function(mdb, col){
+buckets_summary <- function(mdb){
 
-  mdb %>%
-    dplyr::select({{col}}) %>% names -> cols
+  mdb %>% names %>% stringr::str_subset("_[wfvkx][0-9]*$") -> cols
 
-  bucket_rgx <- stringr::str_c(cols, "_[a-z][0-9]*$", collapse = "|")
+  bucket_rgx <- stringr::str_c(cols,  collapse = "|")
 
   mdb %>% names %>% stringr::str_subset(bucket_rgx) %>% rlang::syms()  -> bucks
 
@@ -15,9 +14,9 @@ buckets_summary <- function(mdb, col){
 
   mdb %>% dplyr::select(!!buck) %>% names() -> bnames
 
-  bnames %>% stringr::str_extract("[a-z][0-9]*$")  %>% stringr::str_remove("[0-9]*$") -> suffix
+  bnames %>% stringr::str_extract("[wfvkx][0-9]*$")  %>% stringr::str_remove("[0-9]*$") -> suffix
 
-  bnames %>% stringr::str_remove("_[a-z][0-9]*$") %>% rlang::sym() -> org_col
+  bnames %>% stringr::str_remove("_[wfvkx][0-9]*$") %>% rlang::sym() -> org_col
 
     switch(suffix,
            "w" = "equal width",
@@ -38,11 +37,3 @@ buckets_summary <- function(mdb, col){
 
   blist %>% reduce(bind_rows)
 }
-
-# else{
-#
-#
-#   mdb %>%
-#     numeric_summary(original_col = {{col}}, bucket_col = !!bucks[[1]]) -> df_output
-#
-# }
