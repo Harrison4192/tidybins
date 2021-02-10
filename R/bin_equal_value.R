@@ -1,7 +1,19 @@
-quantile_value <- function(mdb, col, quantile_num = 10){
+#' bin equal value
+#'
+#' Bins a numeric column such that each bin contains 10% of the total value (sum) of that column.
+#' Intended for positive numeric vectors that make sense to sum, such as sales. Negative and NAs get treated as 0.
+#' The function never puts two rows with the same value into different bins.
+#'
+#' @param mdb a data frame
+#' @param col unquoted column
+#' @param n_bins number of bins
+#'
+#' @return a tibble
+#' @export
+bin_equal_value <- function(mdb, col, n_bins = 10){
   col <- rlang::ensym(col)
 
-  name <- rlang::sym(stringr::str_glue("{rlang::as_name(col)}_v{quantile_num}"))
+  name <- rlang::sym(stringr::str_glue("{rlang::as_name(col)}_v{n_bins}"))
 
 
 
@@ -17,7 +29,7 @@ quantile_value <- function(mdb, col, quantile_num = 10){
   mdb %>% dplyr::mutate(col_sum = sum(mycol)) -> mdb
   mdb %>% dplyr::arrange(mycol)-> mdb
   mdb %>% dplyr::mutate(cumul = cumsum(mycol)) -> mdb
-  mdb %>% dplyr::mutate(cumul_frac = cumul / col_sum * quantile_num) -> mdb
+  mdb %>% dplyr::mutate(cumul_frac = cumul / col_sum * n_bins) -> mdb
   mdb %>% dplyr::mutate(!!name := cumul_frac %>% ceiling) -> mdb
   mdb %>% dplyr::group_by(mycol) %>% dplyr::mutate(!!name := max(!!name)) %>% dplyr::ungroup()-> mdb
   mdb %>% dplyr::select(-cumul, -cumul_frac, -col_sum, -mycol) -> mdb

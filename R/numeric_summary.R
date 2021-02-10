@@ -1,3 +1,14 @@
+#' numeric summary
+#'
+#' This function summarizes an arbitrary bin column, with respect to its original column. Can be used to summarize
+#' bins created from any package.
+#'
+#' @param mdb a data frame
+#' @param original_col original numeric column
+#' @param bucket_col columns of bins
+#'
+#' @return a tibble
+#' @export
 numeric_summary <- function(mdb, original_col, bucket_col){
 
 

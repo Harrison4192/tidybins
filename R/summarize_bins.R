@@ -1,4 +1,14 @@
-buckets_summary <- function(mdb){
+#' summarize bins
+#'
+#' Returns a summary of all bins created by `make_bins` in a data frame. Takes no arguments other than the data frame
+#' but relies on regular expressions based of the `make_bins` output in order to identify the corresponding columns.
+#'
+#'
+#' @param mdb a tibble (as returned by `make_bins`)
+#'
+#' @return a tibble
+#' @export
+summarize_bins <- function(mdb){
 
   mdb %>% names %>% stringr::str_subset("_[wfvkx][0-9]*$") -> cols
 

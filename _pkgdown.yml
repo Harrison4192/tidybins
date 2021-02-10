@@ -1,4 +1,21 @@
-reference: []
+template:
+  params:
+    bootswatch: cosmo
+    ganalytics: G-Z4FGL6BTP7
+
+development:
+  mode: auto
+
+reference:
+- title: Flagship functions
+  contents:
+  - '`make_bins`'
+  - '`summarize_bins`'
+- title: Helper Functions
+  contents:
+  - '`bin_equal_value`'
+  - '`five_number_summary`'
+  - '`numeric_summary`'
 articles:
 - title: All vignettes
   desc: null
@@ -12,7 +29,9 @@ navbar:
     - articles
     - tutorials
     - news
-    right: github
+    right:
+    - github
+    - TidyConsultant
   components:
     home:
       icon: fas fa-home fa-lg
@@ -20,4 +39,13 @@ navbar:
     reference:
       text: Reference
       href: reference/index.html
+    TidyConsultant:
+      text: TC
+      href: https://harrison4192.github.io/TidyConsultant/
+    news:
+      text: Changelog
+      href: news/index.html
+    github:
+      icon: fab fa-github fa-lg
+      href: https://github.com/Harrison4192/tidyBins/
 

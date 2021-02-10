@@ -1,3 +1,11 @@
+#' five number summary
+#'
+#' The five number summary of a numeric vector you would get from `summary` but returned with a tidy output.
+#'
+#' @param x a numeric vector
+#'
+#' @return a tibble
+#' @export
 five_number_summary <- function(x) {
   x %>%
     summary %>%
