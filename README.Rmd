@@ -19,9 +19,10 @@ knitr::opts_chunk$set(
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN status](https://www.r-pkg.org/badges/version/tidyBins)](https://CRAN.R-project.org/package=tidyBins)
 [![R-CMD-check](https://github.com/Harrison4192/tidyBins/workflows/R-CMD-check/badge.svg)](https://github.com/Harrison4192/tidyBins/actions)
-`r badger::badge_cran_download("dataCleaner", "grand-total", "blue")`
-`r badger::badge_code_size("Harrison4192/dataCleaner")`
-`r badger::badge_last_commit("Harrison4192/dataCleaner")`
+
+`r badger::badge_cran_download("tidyBins", "grand-total", "blue")`
+`r badger::badge_code_size("Harrison4192/tidyBins")`
+`r badger::badge_last_commit("Harrison4192/tidyBins")`
 <!-- badges: end -->
 
 The goal of tidyBins is to let users bin numeric data using different mehods in a tidy format.

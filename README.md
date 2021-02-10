@@ -10,9 +10,10 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![CRAN
 status](https://www.r-pkg.org/badges/version/tidyBins)](https://CRAN.R-project.org/package=tidyBins)
 [![R-CMD-check](https://github.com/Harrison4192/tidyBins/workflows/R-CMD-check/badge.svg)](https://github.com/Harrison4192/tidyBins/actions)
-[![](http://cranlogs.r-pkg.org/badges/grand-total/dataCleaner?color=blue)](https://cran.r-project.org/package=dataCleaner)
-[![](https://img.shields.io/github/languages/code-size/Harrison4192/dataCleaner.svg)](https://github.com/Harrison4192/dataCleaner)
-[![](https://img.shields.io/github/last-commit/Harrison4192/dataCleaner.svg)](https://github.com/Harrison4192/dataCleaner/commits/master)
+
+[![](http://cranlogs.r-pkg.org/badges/grand-total/tidyBins?color=blue)](https://cran.r-project.org/package=tidyBins)
+[![](https://img.shields.io/github/languages/code-size/Harrison4192/tidyBins.svg)](https://github.com/Harrison4192/tidyBins)
+[![](https://img.shields.io/github/last-commit/Harrison4192/tidyBins.svg)](https://github.com/Harrison4192/tidyBins/commits/master)
 <!-- badges: end -->
 
 The goal of tidyBins is to let users bin numeric data using different

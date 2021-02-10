@@ -42,6 +42,7 @@ usethis::use_package("lubridate")
 
 usethis::use_package("badger", type = "Suggests")
 
+usethis::use_vignette("MakeTidyBins")
 
 
 # edit R profile ----------------------------------------------------------
