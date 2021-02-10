@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • tidyBins</title>
+<title>bin equal value — bin_equal_value • tidyBins</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,10 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="bin equal value — bin_equal_value" />
+<meta property="og:description" content="Bins a numeric column such that each bin contains 10
+Intended for positive numeric vectors that make sense to sum, such as sales. Negative and NAs get treated as 0.
+The function never puts two rows with the same value into different bins." />
 
 
 
@@ -68,7 +71,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -126,25 +129,46 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/Harrison4192/tidyBins/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>bin equal value</h1>
+    <small class="dont-index">Source: <a href='https://github.com/Harrison4192/tidyBins/blob/master/R/bin_equal_value.R'><code>R/bin_equal_value.R</code></a></small>
+    <div class="hidden name"><code>bin_equal_value.Rd</code></div>
     </div>
 
-    <div id="tidybins-010" class="section level1">
-<h1 class="page-header" data-toc-text="0.1.0">
-<a href="#tidybins-010" class="anchor"></a>tidyBins 0.1.0</h1>
-<ul>
-<li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
-</ul>
-</div>
-  </div>
+    <div class="ref-description">
+    <p>Bins a numeric column such that each bin contains 10<!-- % of the total value (sum) of that column. -->
+Intended for positive numeric vectors that make sense to sum, such as sales. Negative and NAs get treated as 0.
+The function never puts two rows with the same value into different bins.</p>
+    </div>
 
+    <pre class="usage"><span class='fu'>bin_equal_value</span><span class='op'>(</span><span class='va'>mdb</span>, <span class='va'>col</span>, n_bins <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>mdb</th>
+      <td><p>a data frame</p></td>
+    </tr>
+    <tr>
+      <th>col</th>
+      <td><p>unquoted column</p></td>
+    </tr>
+    <tr>
+      <th>n_bins</th>
+      <td><p>number of bins</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a tibble</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 
