@@ -11,6 +11,9 @@
 #' @return a tibble
 #' @export
 bin_equal_value <- function(mdb, col, n_bins = 10){
+
+  column<-col_sum<-column<- cumul<-cumul_frac <- mycol <-n <- NULL
+
   col <- rlang::ensym(col)
 
   name <- rlang::sym(stringr::str_glue("{rlang::as_name(col)}_v{n_bins}"))

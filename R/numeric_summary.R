@@ -11,13 +11,14 @@
 #' @export
 numeric_summary <- function(mdb, original_col, bucket_col){
 
+  relative_value <- count <- n <- sd <-  NULL
 
   mdb %>%
     dplyr::group_by({{bucket_col}}, .add = T) %>%
     dplyr::summarize(count = n(),
                      sum = sum({{original_col}}, na.rm = T),
                      dplyr::across({{original_col}}, five_number_summary),
-                     sd = sd({{original_col}}, na.rm = T)) %>%
+                     sd = stats::sd({{original_col}}, na.rm = T)) %>%
     dplyr::summarize({{bucket_col}}, count, sum, {{original_col}}, sd) %>%
     dplyr::mutate(relative_value = sum / count, .after = count ) %>%
     dplyr::mutate(relative_value = relative_value / max(relative_value, .na.rm = T) * 100) %>%

@@ -10,6 +10,8 @@
 #' @export
 summarize_bins <- function(mdb){
 
+  column <- NULL
+
   mdb %>% names %>% stringr::str_subset("_[wfvkx][0-9]*$") -> cols
 
   bucket_rgx <- stringr::str_c(cols,  collapse = "|")
@@ -45,5 +47,5 @@ summarize_bins <- function(mdb){
   }
 
 
-  blist %>% reduce(bind_rows)
+  blist %>% purrr::reduce(dplyr::bind_rows)
 }

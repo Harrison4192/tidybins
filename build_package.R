@@ -37,6 +37,16 @@ usethis::use_package("tidyselect")
 usethis::use_package("purrr")
 usethis::use_package("janitor")
 usethis::use_package("tibble")
+
+usethis::use_package("scales")
+usethis::use_package("ClusterR")
+usethis::use_package("ggplot2")
+usethis::use_package("recipes")
+usethis::use_package("rlist")
+usethis::use_package("embed")
+
+
+
 usethis::use_package("rlang")
 usethis::use_package("lubridate")
 

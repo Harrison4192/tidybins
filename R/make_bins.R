@@ -5,7 +5,7 @@
 #' Specifying multiple columns is only intended for supervised binning, so mutliple columns can be simultaneously binned
 #' optimally with respect to a target variable.
 #'
-#' @param .data
+#' @param .data a data frame
 #' @param col a column, vector of columns, or tidyselect
 #' @param n_bins number of bins
 #' @param bin_equal_frequency logical, bin type equal frequency (quantile, ntile)
@@ -69,7 +69,7 @@ if(!any(c(
     col_nm <- rlang::sym(stringr::str_glue("{col_str}_v{n_bins}"))
 
     .data %>%
-      quantile_value(col = !!col1, quantile_num = n_bins) -> .data
+      bin_equal_value(col = !!col1, n_bins = n_bins) -> .data
   }
 
   if(bin_kmeans){
@@ -97,11 +97,11 @@ if(!any(c(
     rlang::new_formula(target1, rlang::sym(".")) -> myform
 
     xgb_rec <- recipes::recipe(myform, data = .data) %>%
-      step_discretize_xgb(!!col1, outcome = outcome1, num_breaks = n_bins, ...)
+      embed::step_discretize_xgb(!!col1, outcome = outcome1, num_breaks = n_bins, ...)
 
     xgb_rec <- recipes::prep(xgb_rec, training = .data)
 
-    bake(xgb_rec, new_data = NULL) -> new_data
+    recipes::bake(xgb_rec, new_data = NULL) -> new_data
 
     new_data %>%
       dplyr::rename(!!col_nm := !!col1) %>%
@@ -115,11 +115,11 @@ if(!any(c(
       rlang::new_formula(target1, rlang::sym(".")) -> myform
 
       xgb_rec <- recipes::recipe(myform, data = .data) %>%
-        step_discretize_xgb(!!multi_cols, outcome = outcome1, num_breaks = n_bins, ...)
+        embed::step_discretize_xgb(!!multi_cols, outcome = outcome1, num_breaks = n_bins, ...)
 
       xgb_rec <- recipes::prep(xgb_rec, training = .data)
 
-      bake(xgb_rec, new_data = NULL) -> new_data
+      recipes::bake(xgb_rec, new_data = NULL) -> new_data
 
       new_data %>%
         dplyr::relocate(!!multi_cols) %>%

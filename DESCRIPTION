@@ -1,11 +1,14 @@
 Package: tidyBins
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Make Tidy Bins
 Version: 0.1.0
-Author: Who wrote it
+Authors@R: 
+    person(given = "Harrison",
+           family = "Tietze",
+           role = c("aut", "cre"),
+           email = "Harrison4192@gmail.com")
 Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: Multiple ways to bin numeric columns with a tidy output. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -22,7 +25,14 @@ Imports:
     janitor,
     tibble,
     rlang,
-    lubridate
+    lubridate,
+    stats,
+    scales,
+    ClusterR,
+    ggplot2,
+    recipes,
+    rlist,
+    embed
 Suggests: 
     badger,
     knitr,

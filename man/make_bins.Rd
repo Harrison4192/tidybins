@@ -19,6 +19,8 @@ make_bins(
 )
 }
 \arguments{
+\item{.data}{a data frame}
+
 \item{col}{a column, vector of columns, or tidyselect}
 
 \item{n_bins}{number of bins}
