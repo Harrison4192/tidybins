@@ -24,4 +24,7 @@ Imports:
     rlang,
     lubridate
 Suggests: 
-    badger
+    badger,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

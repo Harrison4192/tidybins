@@ -16,10 +16,11 @@ reference:
   - '`bin_equal_value`'
   - '`five_number_summary`'
   - '`numeric_summary`'
+
 articles:
 - title: All vignettes
   desc: null
-  contents: '``'
+  contents: '`MakeTidyBins`'
 navbar:
   structure:
     left:
@@ -29,9 +30,7 @@ navbar:
     - articles
     - tutorials
     - news
-    right:
-    - github
-    - TidyConsultant
+    right: github
   components:
     home:
       icon: fas fa-home fa-lg
@@ -39,12 +38,12 @@ navbar:
     reference:
       text: Reference
       href: reference/index.html
-    TidyConsultant:
-      text: TC
-      href: https://harrison4192.github.io/TidyConsultant/
     news:
       text: Changelog
       href: news/index.html
+    articles:
+      text: Articles
+      href: articles/index.html
     github:
       icon: fab fa-github fa-lg
       href: https://github.com/Harrison4192/tidyBins/
