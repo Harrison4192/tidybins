@@ -10,7 +10,7 @@
 #' @export
 summarize_bins <- function(mdb){
 
-  column <- NULL
+  column <- rank <- label <-  NULL
 
   mdb %>% names %>% stringr::str_subset("_[wfvkx][0-9]*$") -> cols
 
@@ -41,7 +41,9 @@ summarize_bins <- function(mdb){
       numeric_summary(original_col = !!org_col, bucket_col = !!buck) %>%
       dplyr::mutate(column := rlang::as_name(org_col),
                     method = method, .before = 1) %>%
-      dplyr::rename_with(function(x)c("rank", "label"), c(3,4)) -> mdb1
+      dplyr::rename_with(function(x)c("rank", "label"), c(3,4)) %>%
+      dplyr::mutate(rank = as.integer(rank),
+                    label = as.character(label)) -> mdb1
 
   blist %>% rlist::list.append(mdb1) -> blist
   }

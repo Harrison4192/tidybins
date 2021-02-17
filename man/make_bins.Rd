@@ -15,6 +15,7 @@ make_bins(
   bin_xgboost = F,
   ...,
   target = NULL,
+  pretty_labels = TRUE,
   seed = 1
 )
 }
@@ -38,6 +39,8 @@ make_bins(
 \item{...}{params to be passed to selected binning method}
 
 \item{target}{unquoted column for supervised binning}
+
+\item{pretty_labels}{logical. If true returns interval label rather than integer rank}
 
 \item{seed}{seed for stochastic binning (xgboost)}
 }

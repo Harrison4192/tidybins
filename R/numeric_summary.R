@@ -24,7 +24,26 @@ numeric_summary <- function(mdb, original_col, bucket_col){
     dplyr::mutate(relative_value = relative_value / max(relative_value, .na.rm = T) * 100) %>%
     dplyr::arrange(dplyr::desc(max)) %>%
     dplyr::mutate(width = max - min) %>%
-    dplyr::mutate("{{bucket_col}}_label" := factor(stringr::str_c("[",scales::number(min, accuracy = .001) , ",", scales::number(max, accuracy = .001), "]")), .after = 1, .keep = "unused")-> mdb
+    dplyr::mutate("{{bucket_col}}_label" := factor(stringr::str_c("[",prettyNum(min) , ",", prettyNum(max), "]")), .after = 1, .keep = "unused")-> mdb
 
   mdb
+}
+
+#' Title
+#'
+#' @param mdb dataframe
+#' @param original_col original col
+#' @param bucket_col bucket col
+#' @keywords internal
+#'
+#' @return
+#'
+make_labels <- function(mdb, original_col, bucket_col){
+
+  mdb %>%
+    dplyr::group_by({{bucket_col}}, .add = T) %>%
+    dplyr::mutate(dplyr::across({{original_col}}, .fns = list(max = max, min = min), .names = "{.fn}")) %>%
+    dplyr::ungroup() %>%
+    dplyr::mutate({{bucket_col}} := factor(stringr::str_c("[",prettyNum(min) , ",", prettyNum(max), "]")), .after = 1, .keep = "unused")
+
 }

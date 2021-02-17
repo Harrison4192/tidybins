@@ -1,6 +1,6 @@
 template:
   params:
-    bootswatch: cosmo
+    bootswatch: united
     ganalytics: G-Z4FGL6BTP7
 
 development:

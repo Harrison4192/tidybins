@@ -15,6 +15,7 @@
 #' @param bin_xgboost logical, supervised binning with xgboost. target must be specified
 #' @param ... params to be passed to selected binning method
 #' @param target unquoted column for supervised binning
+#' @param pretty_labels logical. If true returns interval label rather than integer rank
 #' @param seed seed for stochastic binning (xgboost)
 #'
 #' @return a tibble
@@ -29,6 +30,7 @@ make_bins <- function(.data,
                            bin_xgboost = F,
                            ...,
                            target = NULL,
+                           pretty_labels = TRUE,
                            seed = 1
 ){
 
@@ -49,27 +51,15 @@ if(!any(c(
   col1 <- rlang::ensym(col)
   col_str <- rlang::as_name(col1)}
 
-
-  if(bin_equal_frequency){
-
-    col_nm <- rlang::sym(stringr::str_glue("{col_str}_f{n_bins}"))
-
-    .data %>%
-      dplyr::mutate(!!col_nm := ggplot2::cut_number(!!col1, n = n_bins, labels = F), .after = !!col1) -> .data
-  }
-
-  if(bin_equal_width){
-    col_nm <- rlang::sym(stringr::str_glue("{col_str}_w{n_bins}"))
-
-    .data %>%
-      dplyr::mutate(!!col_nm := ggplot2::cut_interval(!!col1, n = n_bins, labels = F), .after = !!col1) -> .data
-  }
-
   if(bin_equal_value){
     col_nm <- rlang::sym(stringr::str_glue("{col_str}_v{n_bins}"))
 
     .data %>%
       bin_equal_value(col = !!col1, n_bins = n_bins) -> .data
+
+    if(pretty_labels){
+      .data %>% make_labels(original_col = !!col1, bucket_col = !!col_nm) -> .data
+    }
   }
 
   if(bin_kmeans){
@@ -82,6 +72,11 @@ if(!any(c(
 
     .data %>%
       dplyr::mutate(!!col_nm := rank(kmns[["centroids"]])[kmns[["clusters"]]], .after = !!col1)  -> .data
+
+    if(pretty_labels){
+      .data %>%
+        make_labels(original_col = !!col1, bucket_col = !!col_nm)  -> .data
+    }
 
   }
 
@@ -128,14 +123,33 @@ if(!any(c(
         dplyr::bind_cols(.data %>% dplyr::select(!!multi_cols)) %>%
         dplyr::relocate(!!multi_cols) -> .data
     }
+  if(!pretty_labels){
+    .data %>%
+      dplyr::mutate(dplyr::across(tidyselect::matches("_[wfvkx][0-9]*$"), as.integer)) -> .data
+  }
+  }
 
+  if(pretty_labels){
+    pretty_labels <- NULL
+  }
+
+  if(bin_equal_frequency){
+
+    col_nm <- rlang::sym(stringr::str_glue("{col_str}_f{n_bins}"))
+
+
+    .data %>%
+      dplyr::mutate(!!col_nm := ggplot2::cut_number(!!col1, n = n_bins, labels = pretty_labels), .after = !!col1) -> .data
+  }
+
+  if(bin_equal_width){
+    col_nm <- rlang::sym(stringr::str_glue("{col_str}_w{n_bins}"))
+
+    .data %>%
+      dplyr::mutate(!!col_nm := ggplot2::cut_interval(!!col1, n = n_bins, labels = pretty_labels), .after = !!col1) -> .data
   }
 
 
-
-  if(length(multi_cols) == 1){
-  .data %>%
-    dplyr::mutate(!!col_nm := as.integer(!!col_nm)) -> .data}
 
   .data
 
