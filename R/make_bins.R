@@ -13,12 +13,13 @@
 #' @param bin_equal_value logical, bin type equal value
 #' @param bin_kmeans logical, bin type kmeans
 #' @param bin_xgboost logical, supervised binning with xgboost. target must be specified
+#' @param bin_woe logical, supervised binning with weight of evidence. BINARY target must be specified
 #' @param ... params to be passed to selected binning method
 #' @param target unquoted column for supervised binning
-#' @param pretty_labels logical. If true returns interval label rather than integer rank
+#' @param pretty_labels logical. If false returns integer rank rather than interval label
 #' @param seed seed for stochastic binning (xgboost)
 #'
-#' @return a tibble
+#' @return a data frame
 #' @export
 make_bins <- function(.data,
                            col,
@@ -28,6 +29,7 @@ make_bins <- function(.data,
                            bin_equal_value = F,
                            bin_kmeans = F,
                            bin_xgboost = F,
+                           bin_woe = F,
                            ...,
                            target = NULL,
                            pretty_labels = TRUE,
@@ -39,7 +41,8 @@ if(!any(c(
   bin_equal_width,
   bin_equal_value,
   bin_kmeans,
-  bin_xgboost))){
+  bin_xgboost,
+  bin_woe))){
 
   bin_equal_frequency = T
 }
@@ -52,7 +55,7 @@ if(!any(c(
   col_str <- rlang::as_name(col1)}
 
   if(bin_equal_value){
-    col_nm <- rlang::sym(stringr::str_glue("{col_str}_v{n_bins}"))
+    col_nm <- rlang::sym(stringr::str_glue("{col_str}_ev{n_bins}"))
 
     .data %>%
       bin_equal_value(col = !!col1, n_bins = n_bins) -> .data
@@ -63,7 +66,7 @@ if(!any(c(
   }
 
   if(bin_kmeans){
-    col_nm <- rlang::sym(stringr::str_glue("{col_str}_k{n_bins}"))
+    col_nm <- rlang::sym(stringr::str_glue("{col_str}_km{n_bins}"))
 
     .data %>%
       dplyr::pull(!!col1) %>%
@@ -80,13 +83,41 @@ if(!any(c(
 
   }
 
+  if(bin_woe){
+
+    rlang::enexpr(col) -> mc
+    purrr::map_chr(mc, rlang::as_string) %>%
+    stringr::str_subset("^c$", T) -> bin_cols_string
+
+    rlang::ensym(target) -> target1
+    rlang::as_name(target1) -> outcome1
+
+    binning <- woe.binning(.data, outcome1, pred.var = bin_cols_string)
+    woe.binning.deploy(.data, binning) -> .data
+
+    .data %>%
+      dplyr::summarize(dplyr::across(tidyselect::matches("\\.binned$"), dplyr::n_distinct)) %>%
+      purrr::map_chr(1) %>%
+      stringr::str_c("_wo", .) -> bin_lens
+
+    print(bin_lens)
+
+    .data %>%
+      dplyr::rename_with(.cols = tidyselect::matches("\\.binned$"), .fn = ~stringr::str_replace(.,"\\.binned$",  bin_lens)) %>%
+      relocate(any_of(bin_cols_string), .before = tidyselect::matches("_wo[0-9]*$")) -> .data
+
+      if(!pretty_labels){
+        .data %>% dplyr::mutate(dplyr::across(tidyselect::any_of(bin_cols_string), as.integer)) -> .data
+      }
+  }
+
 
 
   if(bin_xgboost){
 
     if(length(multi_cols) == 1){
     set.seed(seed)
-    col_nm <- rlang::sym(stringr::str_glue("{col_str}_x{n_bins}"))
+    col_nm <- rlang::sym(stringr::str_glue("{col_str}_xg{n_bins}"))
     rlang::ensym(target) -> target1
     rlang::as_name(target1) -> outcome1
     rlang::new_formula(target1, rlang::sym(".")) -> myform
@@ -118,15 +149,20 @@ if(!any(c(
 
       new_data %>%
         dplyr::relocate(!!multi_cols) %>%
-        dplyr::mutate(dplyr::across(!!multi_cols, as.integer)) %>%
-        dplyr::rename_with(.fn = ~stringr::str_c(., "_x" ,n_bins), .cols = !!multi_cols) %>%
+        dplyr::rename_with(.fn = ~stringr::str_c(., "_xg" ,n_bins), .cols = !!multi_cols) %>%
         dplyr::bind_cols(.data %>% dplyr::select(!!multi_cols)) %>%
         dplyr::relocate(!!multi_cols) -> .data
     }
   if(!pretty_labels){
     .data %>%
-      dplyr::mutate(dplyr::across(tidyselect::matches("_[wfvkx][0-9]*$"), as.integer)) -> .data
+      dplyr::mutate(dplyr::across(tidyselect::matches("_xg[0-9]*$"), as.integer)) -> .data
   }
+
+    .data %>%
+      dplyr::summarize(dplyr::across(tidyselect::matches("_xg[0-9]*$"), dplyr::n_distinct)) %>% purrr::map_chr(1) -> bin_lens
+
+    .data %>%
+      dplyr::rename_with(.cols = tidyselect::matches("_xg[0-9]*$"), .fn = ~stringr::str_replace(., "[0-9]*$", bin_lens))  -> .data
   }
 
   if(pretty_labels){
@@ -135,7 +171,7 @@ if(!any(c(
 
   if(bin_equal_frequency){
 
-    col_nm <- rlang::sym(stringr::str_glue("{col_str}_f{n_bins}"))
+    col_nm <- rlang::sym(stringr::str_glue("{col_str}_ef{n_bins}"))
 
 
     .data %>%
@@ -143,7 +179,7 @@ if(!any(c(
   }
 
   if(bin_equal_width){
-    col_nm <- rlang::sym(stringr::str_glue("{col_str}_w{n_bins}"))
+    col_nm <- rlang::sym(stringr::str_glue("{col_str}_ew{n_bins}"))
 
     .data %>%
       dplyr::mutate(!!col_nm := ggplot2::cut_interval(!!col1, n = n_bins, labels = pretty_labels), .after = !!col1) -> .data
