@@ -16,7 +16,7 @@ bin_equal_value <- function(mdb, col, n_bins = 10){
 
   col <- rlang::ensym(col)
 
-  name <- rlang::sym(stringr::str_glue("{rlang::as_name(col)}_v{n_bins}"))
+  name <- rlang::sym(stringr::str_glue("{rlang::as_name(col)}_va{n_bins}"))
 
 
 
@@ -37,6 +37,8 @@ bin_equal_value <- function(mdb, col, n_bins = 10){
   mdb %>% dplyr::group_by(mycol) %>% dplyr::mutate(!!name := max(!!name)) %>% dplyr::ungroup()-> mdb
   mdb %>% dplyr::select(-cumul, -cumul_frac, -col_sum, -mycol) -> mdb
   mdb %>% dplyr::relocate(!!name, .after = !!col) -> mdb
+  mdb %>% dplyr::mutate(!!name := as.integer(!!name)) -> mdb
+
 
   mdb
 

@@ -30,7 +30,7 @@ ymlthis::pkgdown_template() %>%
 
 usethis::use_pipe()
 
-usethis::use_package("rstudioapi")
+usethis::use_package("woeBinning")
 usethis::use_package("dplyr")
 usethis::use_package("stringr")
 usethis::use_package("tidyselect")

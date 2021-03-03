@@ -32,7 +32,8 @@ Imports:
     ggplot2,
     recipes,
     rlist,
-    embed
+    embed,
+    woeBinning
 Suggests: 
     badger,
     knitr,

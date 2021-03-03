@@ -11,25 +11,29 @@
 #' @export
 numeric_summary <- function(mdb, original_col, bucket_col){
 
-  relative_value <- count <- n <- sd <-  NULL
+  relative_value <- .count  <- .sd <-  .sum <- .min <- .max <- .med <- .mean<- NULL
 
   mdb %>%
     dplyr::group_by({{bucket_col}}, .add = T) %>%
-    dplyr::summarize(count = n(),
-                     sum = sum({{original_col}}, na.rm = T),
-                     dplyr::across({{original_col}}, five_number_summary),
-                     sd = stats::sd({{original_col}}, na.rm = T)) %>%
-    dplyr::summarize({{bucket_col}}, count, sum, {{original_col}}, sd) %>%
-    dplyr::mutate(relative_value = sum / count, .after = count ) %>%
+    dplyr::summarize(.count = dplyr::n(),
+                     .uniques = dplyr::n_distinct({{original_col}}),
+                     .sum = sum({{original_col}}, na.rm = T),
+                     .mean = mean({{original_col}}, na.rm = T),
+                     .med = stats::median({{original_col}}, na.rm = T),
+                     .min = min({{original_col}}, na.rm = T),
+                     .max = max({{original_col}}, na.rm = T),
+                     .sd = stats::sd({{original_col}}, na.rm = T)
+                     ) %>%
+    dplyr::mutate(relative_value = .sum / .count, .after = .uniques ) %>%
     dplyr::mutate(relative_value = relative_value / max(relative_value, .na.rm = T) * 100) %>%
-    dplyr::arrange(dplyr::desc(max)) %>%
-    dplyr::mutate(width = max - min) %>%
-    dplyr::mutate("{{bucket_col}}_label" := factor(stringr::str_c("[",prettyNum(min) , ",", prettyNum(max), "]")), .after = 1, .keep = "unused")-> mdb
+    dplyr::arrange(dplyr::desc(.max)) %>%
+    dplyr::mutate(width = .max - .min) %>%
+    dplyr::mutate("{{bucket_col}}_label" := factor(stringr::str_c("[",prettyNum(.min) , ",", prettyNum(.max), "]")), .after = 1, .keep = "unused")-> mdb
 
   mdb
 }
 
-#' Title
+#' make labels
 #'
 #' @param mdb dataframe
 #' @param original_col original col

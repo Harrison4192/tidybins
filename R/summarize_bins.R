@@ -10,7 +10,7 @@
 #' @export
 summarize_bins <- function(mdb){
 
-  column <- rank <- label <-  NULL
+  column <- .rank <- .label <-  NULL
 
   mdb %>% names %>% stringr::str_subset("_[a-z][a-z][0-9]*$") -> cols
 
@@ -33,11 +33,12 @@ summarize_bins <- function(mdb){
   bnames %>% stringr::str_remove("_[a-z][a-z][0-9]*$") %>% rlang::sym() -> org_col
 
     switch(suffix_letter,
-           "ew" = "equal width",
-           "ef" = "equal freq",
-           "ev" = "equal value",
+           "wi" = "equal width",
+           "fr" = "equal freq",
+           "va" = "equal value",
            "km" = "kmeans",
            "xg" = "xgboost",
+           "ca" = "cart",
            "wo" = "weight of evidence") -> method
 
     mdb %>%
@@ -46,9 +47,9 @@ summarize_bins <- function(mdb){
                     method = method,
                     n_bins = suffix_number,
                     .before = 1) %>%
-      dplyr::rename_with(function(x)c("rank", "label"), c(4,5)) %>%
-      dplyr::mutate(rank = as.integer(rank),
-                    label = as.character(label)) -> mdb1
+      dplyr::rename_with(function(x)c(".rank", ".label"), c(4,5)) %>%
+      dplyr::mutate(.rank = as.integer(.rank),
+                    .label = as.character(.label)) -> mdb1
 
   blist %>% rlist::list.append(mdb1) -> blist
   }

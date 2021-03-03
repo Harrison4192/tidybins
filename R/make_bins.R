@@ -55,7 +55,7 @@ if(!any(c(
   col_str <- rlang::as_name(col1)}
 
   if(bin_equal_value){
-    col_nm <- rlang::sym(stringr::str_glue("{col_str}_ev{n_bins}"))
+    col_nm <- rlang::sym(stringr::str_glue("{col_str}_va{n_bins}"))
 
     .data %>%
       bin_equal_value(col = !!col1, n_bins = n_bins) -> .data
@@ -74,7 +74,7 @@ if(!any(c(
       ClusterR::KMeans_rcpp(clusters = n_bins, num_init = 10, ...) -> kmns
 
     .data %>%
-      dplyr::mutate(!!col_nm := rank(kmns[["centroids"]])[kmns[["clusters"]]], .after = !!col1)  -> .data
+      dplyr::mutate(!!col_nm := as.integer(rank(kmns[["centroids"]])[kmns[["clusters"]]]), .after = !!col1)  -> .data
 
     if(pretty_labels){
       .data %>%
@@ -86,28 +86,33 @@ if(!any(c(
   if(bin_woe){
 
     rlang::enexpr(col) -> mc
-    purrr::map_chr(mc, rlang::as_string) %>%
-    stringr::str_subset("^c$", T) -> bin_cols_string
+
+    if(length(mc) == 1) {mc %>% rlang::as_string() -> mc1} else{
+      mc %>%
+        purrr::map_chr(rlang::as_string) %>%
+        stringr::str_subset("^c$", negate = T) -> mc1
+    }
+
+    mc1 -> bin_cols_string
 
     rlang::ensym(target) -> target1
     rlang::as_name(target1) -> outcome1
 
-    binning <- woe.binning(.data, outcome1, pred.var = bin_cols_string)
-    woe.binning.deploy(.data, binning) -> .data
+    binning <- woeBinning::woe.binning(.data, outcome1, pred.var = bin_cols_string)
+    woeBinning::woe.binning.deploy(.data, binning) -> .data
 
     .data %>%
       dplyr::summarize(dplyr::across(tidyselect::matches("\\.binned$"), dplyr::n_distinct)) %>%
       purrr::map_chr(1) %>%
       stringr::str_c("_wo", .) -> bin_lens
 
-    print(bin_lens)
 
     .data %>%
       dplyr::rename_with(.cols = tidyselect::matches("\\.binned$"), .fn = ~stringr::str_replace(.,"\\.binned$",  bin_lens)) %>%
-      relocate(any_of(bin_cols_string), .before = tidyselect::matches("_wo[0-9]*$")) -> .data
+      dplyr::relocate(tidyselect::any_of(bin_cols_string), .before = tidyselect::matches("_wo[0-9]*$")) -> .data
 
       if(!pretty_labels){
-        .data %>% dplyr::mutate(dplyr::across(tidyselect::any_of(bin_cols_string), as.integer)) -> .data
+        .data %>% dplyr::mutate(dplyr::across(tidyselect::matches("_wo[0-9]*$"), as.integer)) -> .data
       }
   }
 
@@ -115,54 +120,58 @@ if(!any(c(
 
   if(bin_xgboost){
 
-    if(length(multi_cols) == 1){
+    rlang::enexpr(col) -> mc
+
+    if(length(mc) == 1) {mc %>% rlang::as_string() -> mc1} else{
+      mc %>%
+        purrr::map_chr(rlang::as_string) %>%
+        stringr::str_subset("^c$", negate = T) -> mc1
+    }
+
+    mc1 -> bin_cols_string
+
+    .data %>%
+      dplyr::summarise(dplyr::across(any_of(bin_cols_string), dplyr::n_distinct)) %>%
+      unlist() -> sizes
+      any(sizes < 20) -> use_cart
+
+
+
     set.seed(seed)
-    col_nm <- rlang::sym(stringr::str_glue("{col_str}_xg{n_bins}"))
     rlang::ensym(target) -> target1
     rlang::as_name(target1) -> outcome1
     rlang::new_formula(target1, rlang::sym(".")) -> myform
 
-    xgb_rec <- recipes::recipe(myform, data = .data) %>%
-      embed::step_discretize_xgb(!!col1, outcome = outcome1, num_breaks = n_bins, ...)
 
-    xgb_rec <- recipes::prep(xgb_rec, training = .data)
 
-    recipes::bake(xgb_rec, new_data = NULL) -> new_data
+    rec1 <- recipes::recipe(myform, data = .data)
+
+    if(!use_cart){
+      rec2 <- embed::step_discretize_xgb(rec1, tidyselect::any_of(bin_cols_string), outcome = outcome1, num_breaks = n_bins, ..., verbose = 0)
+      abbv <- "xg"
+    } else{
+      rec2 <- embed::step_discretize_cart(rec1, tidyselect::any_of(bin_cols_string), outcome = outcome1, ...)
+      abbv <- "ca"
+    }
+
+    rec3 <- recipes::prep(rec2, training = .data)
+
+    recipes::bake(rec3, new_data = NULL) -> new_data
 
     new_data %>%
-      dplyr::rename(!!col_nm := !!col1) %>%
-      dplyr::bind_cols(.data %>% dplyr::select(!!col1)) %>%
-      dplyr::relocate(!!col1, !!col_nm) -> .data}
-    else{
+      dplyr::summarize(dplyr::across(tidyselect::any_of(bin_cols_string), dplyr::n_distinct)) %>% purrr::map_chr(1) -> bin_lens
 
-      set.seed(seed)
-      rlang::ensym(target) -> target1
-      rlang::as_name(target1) -> outcome1
-      rlang::new_formula(target1, rlang::sym(".")) -> myform
+    new_data %>%
+      dplyr::rename_with(.fn = ~stringr::str_c(., "_", abbv, bin_lens), .cols = tidyselect::any_of(bin_cols_string)) -> new_data
 
-      xgb_rec <- recipes::recipe(myform, data = .data) %>%
-        embed::step_discretize_xgb(!!multi_cols, outcome = outcome1, num_breaks = n_bins, ...)
+    new_data %>%
+      dplyr::bind_cols(.data %>% dplyr::select(tidyselect::any_of(bin_cols_string))) %>%
+      dplyr::relocate(tidyselect::matches(stringr::str_c(bin_cols_string, collapse = "|"))) -> .data
 
-      xgb_rec <- recipes::prep(xgb_rec, training = .data)
-
-      recipes::bake(xgb_rec, new_data = NULL) -> new_data
-
-      new_data %>%
-        dplyr::relocate(!!multi_cols) %>%
-        dplyr::rename_with(.fn = ~stringr::str_c(., "_xg" ,n_bins), .cols = !!multi_cols) %>%
-        dplyr::bind_cols(.data %>% dplyr::select(!!multi_cols)) %>%
-        dplyr::relocate(!!multi_cols) -> .data
-    }
   if(!pretty_labels){
     .data %>%
-      dplyr::mutate(dplyr::across(tidyselect::matches("_xg[0-9]*$"), as.integer)) -> .data
+      dplyr::mutate(dplyr::across(tidyselect::matches("_(xg|ca)[0-9]*$"), as.integer)) -> .data
   }
-
-    .data %>%
-      dplyr::summarize(dplyr::across(tidyselect::matches("_xg[0-9]*$"), dplyr::n_distinct)) %>% purrr::map_chr(1) -> bin_lens
-
-    .data %>%
-      dplyr::rename_with(.cols = tidyselect::matches("_xg[0-9]*$"), .fn = ~stringr::str_replace(., "[0-9]*$", bin_lens))  -> .data
   }
 
   if(pretty_labels){
@@ -171,7 +180,7 @@ if(!any(c(
 
   if(bin_equal_frequency){
 
-    col_nm <- rlang::sym(stringr::str_glue("{col_str}_ef{n_bins}"))
+    col_nm <- rlang::sym(stringr::str_glue("{col_str}_fr{n_bins}"))
 
 
     .data %>%
@@ -179,7 +188,7 @@ if(!any(c(
   }
 
   if(bin_equal_width){
-    col_nm <- rlang::sym(stringr::str_glue("{col_str}_ew{n_bins}"))
+    col_nm <- rlang::sym(stringr::str_glue("{col_str}_wi{n_bins}"))
 
     .data %>%
       dplyr::mutate(!!col_nm := ggplot2::cut_interval(!!col1, n = n_bins, labels = pretty_labels), .after = !!col1) -> .data
