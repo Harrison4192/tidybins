@@ -17,7 +17,6 @@ URL: https://github.com/Harrison4192/tidyBins
 BugReports: https://github.com/Harrison4192/tidyBins/issues
 Imports: 
     magrittr,
-    rstudioapi,
     dplyr,
     stringr,
     tidyselect,
@@ -28,15 +27,15 @@ Imports:
     lubridate,
     stats,
     scales,
-    ClusterR,
     ggplot2,
     recipes,
     rlist,
-    embed,
-    woeBinning,
-    arulesCBA
+    OneR
 Suggests: 
     badger,
     knitr,
-    rmarkdown
+    rmarkdown,
+    arulesCBA,
+    embed,
+    woeBinning
 VignetteBuilder: knitr
