@@ -6,7 +6,7 @@
 library(pacman)
 p_load(rstudioapi, devtools, roxygen2, usethis, pkgdown,
        ymlthis, magrittr, fs, covr, gitcreds, credentials,
-       badger, hexSticker, gh, xfun)
+       badger, hexSticker, gh, xfun, tidyverse)
 
 
 # add this file to .Rbuildignore ------------------------------------------
@@ -29,6 +29,7 @@ ymlthis::pkgdown_template() %>%
 # usethis: add packages ---------------------------------------------------
 
 usethis::use_pipe()
+usethis::use_r("drop_original_cols")
 
 usethis::use_package("woeBinning")
 usethis::use_package("dplyr")
@@ -41,7 +42,7 @@ usethis::use_package("tibble")
 usethis::use_package("scales")
 usethis::use_package("ClusterR")
 usethis::use_package("ggplot2")
-usethis::use_package("recipes")
+usethis::use_package("arulesCBA")
 usethis::use_package("rlist")
 usethis::use_package("embed")
 

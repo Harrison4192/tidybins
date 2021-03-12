@@ -33,7 +33,8 @@ Imports:
     recipes,
     rlist,
     embed,
-    woeBinning
+    woeBinning,
+    arulesCBA
 Suggests: 
     badger,
     knitr,

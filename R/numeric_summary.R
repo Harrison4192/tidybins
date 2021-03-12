@@ -16,10 +16,10 @@ numeric_summary <- function(mdb, original_col, bucket_col){
   mdb %>%
     dplyr::group_by({{bucket_col}}, .add = T) %>%
     dplyr::summarize(.count = dplyr::n(),
+                     .rate = .count / nrow(mdb),
                      .uniques = dplyr::n_distinct({{original_col}}),
                      .sum = sum({{original_col}}, na.rm = T),
                      .mean = mean({{original_col}}, na.rm = T),
-                     .med = stats::median({{original_col}}, na.rm = T),
                      .min = min({{original_col}}, na.rm = T),
                      .max = max({{original_col}}, na.rm = T),
                      .sd = stats::sd({{original_col}}, na.rm = T)

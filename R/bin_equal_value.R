@@ -4,11 +4,10 @@
 #' Intended for positive numeric vectors that make sense to sum, such as sales. Negative and NAs get treated as 0.
 #' The function never puts two rows with the same value into different bins.
 #'
-#' @param mdb a data frame
-#' @param col unquoted column
+#' @param col a numeric vector
 #' @param n_bins number of bins
 #'
-#' @return a tibble
+#' @return an integer vector
 #' @export
 bin_equal_value <- function(mdb, col, n_bins = 10){
 
@@ -43,3 +42,23 @@ bin_equal_value <- function(mdb, col, n_bins = 10){
   mdb
 
 }
+
+
+# bin_equal_value <- function(col, n_bins = 10){
+#
+#   column<-col_sum<-column<- cumul<-cumul_frac <-n <- NULL
+#
+#   mdb <- tibble::tibble(col = col)
+#   mdb %>% dplyr::mutate(col = ifelse(is.na(col) | col < 0, 0, col)) -> mdb
+#   mdb %>% dplyr::mutate(col_sum = sum(col)) -> mdb
+#   mdb %>% dplyr::arrange(col) -> mdb
+#   mdb %>% dplyr::mutate(cumul = cumsum(col)) -> mdb
+#   mdb %>% dplyr::mutate(cumul_frac = cumul / col_sum * n_bins) -> mdb
+#   mdb %>% dplyr::mutate(col = cumul_frac %>% ceiling) -> mdb; print(as.data.frame(mdb))
+#   mdb %>% dplyr::group_by(col) %>% dplyr::mutate(col1 = as.integer(max(col))) %>% dplyr::ungroup()-> mdb
+#   mdb %>% dplyr::pull(col1) -> col
+#
+#   col
+#
+# }
+

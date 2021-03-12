@@ -11,6 +11,8 @@ reference:
   contents:
   - '`make_bins`'
   - '`summarize_bins`'
+  - '`drop_original_cols`'
+
 - title: Helper Functions
   contents:
   - '`bin_equal_value`'

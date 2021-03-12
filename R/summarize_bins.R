@@ -5,14 +5,25 @@
 #'
 #'
 #' @param mdb dataframe output from make_bins
+#' @param ... optional tidyselect specification for specific cols
 #'
 #' @return a tibble
 #' @export
-summarize_bins <- function(mdb){
+summarize_bins <- function(mdb, ...){
 
   column <- .rank <- .label <-  NULL
 
+  if(!missing(...)){
+    mdb %>%
+      dplyr::select(...) %>%
+      names() %>%
+      stringr::str_subset("_[a-z][a-z][0-9]*$") -> cols
+    if(rlang::is_empty(cols)){
+      rlang::abort("you only supplied columns that weren't created by make_bins")
+    }
+  } else{
   mdb %>% names %>% stringr::str_subset("_[a-z][a-z][0-9]*$") -> cols
+  }
 
   bucket_rgx <- stringr::str_c(cols,  collapse = "|")
 
@@ -39,7 +50,17 @@ summarize_bins <- function(mdb){
            "km" = "kmeans",
            "xg" = "xgboost",
            "ca" = "cart",
-           "wo" = "weight of evidence") -> method
+           "wo" = "woe",
+           "lr" = "logistic regression",
+           "ci" = "caim",
+           "cc" = "cacc",
+           "am" = "ameva",
+           "ch" = "chi2",
+           "cm" = "chimerge",
+           "ec" = "extendedchi2",
+           "mh" = "modchi2",
+           "md" = "mdlp"
+           ) -> method
 
     mdb %>%
       numeric_summary(original_col = !!org_col, bucket_col = !!buck) %>%
