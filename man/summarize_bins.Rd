@@ -4,10 +4,12 @@
 \alias{summarize_bins}
 \title{summarize bins}
 \usage{
-summarize_bins(mdb)
+summarize_bins(mdb, ...)
 }
 \arguments{
-\item{mdb}{a tibble (as returned by `make_bins`)}
+\item{mdb}{dataframe output from make_bins}
+
+\item{...}{optional tidyselect specification for specific cols}
 }
 \value{
 a tibble

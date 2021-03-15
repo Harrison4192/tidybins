@@ -17,7 +17,7 @@ charvec_to_formula <- function(lhs, rhs){
 }
 #' tidy formula construction
 #'
-#' @param data dataframe
+#' @param .data dataframe
 #' @param target lhs
 #' @param ... tidyselect. rhs
 #'
@@ -34,13 +34,7 @@ tidy_formula <- function(.data, target, ...){
   charvec_to_formula(lhs_var, rhs_vars)
 }
 
-#' select otherwise
-#'
-#' Get the integer positions of columns in a data frame using tidyselect, with the
-#' option to set a default tidyselect specification in the absenceo of any dots.
-#' Additionally another specification can be supplied through col that will be added on to
-#' whichever specification gets resolved.
-#'
+
 #' @param .data dataframe
 #' @param ... tidyselect
 #' @param otherwise tidyselect
@@ -50,28 +44,24 @@ tidy_formula <- function(.data, target, ...){
 #' @return integer vector by default. possibly data frame or character vector
 #' @keywords internal
 #'
-select_otherwise <- function(.data, ..., otherwise, col = NULL, return_type = c("index", "names", "df")){
+select_otherwise <- function(.data, ..., otherwise = tidyselect::everything(), col = NULL, return_type = c("index", "names", "df")){
 
   return_type <- return_type[1]
 
-  .dots <- expr(c(...))
+  .dots <- rlang::expr(c(...))
 
 
-  col <- enexpr(col)
-  otherwise = enexpr(otherwise)
+  col <- rlang::enexpr(col)
+  otherwise = rlang::enexpr(otherwise)
 
 
-  eval_select(
-    .dots, data = .data
-  ) -> eval1
+  tidyselect::eval_select(.dots, data = .data) -> eval1
 
   if(length(eval1) == 0){
-    eval_select(
-      otherwise, data = .data
-    ) -> eval1
+    tidyselect::eval_select( otherwise, data = .data) -> eval1
   }
 
-  eval_select(col, data = .data) %>%
+  tidyselect::eval_select(col, data = .data) %>%
     c(eval1) %>% sort() -> eval1
 
 

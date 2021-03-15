@@ -7,14 +7,14 @@
 bin_equal_value(mdb, col, n_bins = 10)
 }
 \arguments{
-\item{mdb}{a data frame}
+\item{mdb}{dataframe}
 
-\item{col}{unquoted column}
+\item{col}{a numeric vector}
 
 \item{n_bins}{number of bins}
 }
 \value{
-a tibble
+an integer vector
 }
 \description{
 Bins a numeric column such that each bin contains 10% of the total value (sum) of that column.

@@ -4,6 +4,7 @@
 #' Intended for positive numeric vectors that make sense to sum, such as sales. Negative and NAs get treated as 0.
 #' The function never puts two rows with the same value into different bins.
 #'
+#'@param mdb dataframe
 #' @param col a numeric vector
 #' @param n_bins number of bins
 #'

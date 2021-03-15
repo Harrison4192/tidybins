@@ -12,12 +12,16 @@
 #' @param bin_width logical, bin type equal width (cut)
 #' @param bin_value logical, bin type equal value
 #' @param bin_kmeans logical, bin type kmeans
+#' @param bin_mdlp logical, unsupervised binning with descritizer package methods
+#' @param bin_logreg logical. supervised binning with categorical target uses stepwise logistic regression
 #' @param bin_xgboost logical, supervised binning with xgboost. target must be specified
+#'
 #' @param bin_woe logical, supervised binning with weight of evidence. BINARY target must be specified
 #' @param ... params to be passed to selected binning method
 #' @param target unquoted column for supervised binning
 #' @param pretty_labels logical. If T returns interval label rather than integer rank
 #' @param seed seed for stochastic binning (xgboost)
+#' @param method method for bun mdlp
 #'
 #' @return a data frame
 #' @export
@@ -93,12 +97,12 @@ if(!any(c(
                    mdlp         = "md"
     )
 
-    my_form <- .data %>% tidy_formula(!!target1, any_of(bin_cols_string))
+    my_form <- .data %>% tidy_formula(!!target1, tidyselect::any_of(bin_cols_string))
 
 
     .data %>%
       arulesCBA::discretizeDF.supervised(formula = my_form, data = ., method = method) %>%
-      dplyr::select( any_of(bin_cols_string)) -> bin_df
+      dplyr::select( tidyselect::any_of(bin_cols_string)) -> bin_df
 
 
     bin_df %>%
@@ -135,7 +139,7 @@ if(!any(c(
   if(bin_xgboost){
 
     .data %>%
-      dplyr::summarise(dplyr::across(any_of(bin_cols_string), dplyr::n_distinct)) %>%
+      dplyr::summarise(dplyr::across(tidyselect::any_of(bin_cols_string), dplyr::n_distinct)) %>%
       unlist() -> sizes
       any(sizes < 20) -> use_cart
 

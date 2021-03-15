@@ -11,7 +11,7 @@
 #' @export
 numeric_summary <- function(mdb, original_col, bucket_col){
 
-  relative_value <- .count  <- .sd <-  .sum <- .min <- .max <- .med <- .mean<- NULL
+  relative_value <- .count  <- .sd <-  .sum <- .min <- .max <- .uniques <- .mean<- NULL
 
   mdb %>%
     dplyr::group_by({{bucket_col}}, .add = T) %>%
@@ -40,7 +40,7 @@ numeric_summary <- function(mdb, original_col, bucket_col){
 #' @param bucket_col bucket col
 #' @keywords internal
 #'
-#' @return
+#' @return labels
 #'
 make_labels <- function(mdb, original_col, bucket_col){
 

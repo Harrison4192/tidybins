@@ -8,15 +8,19 @@ make_bins(
   .data,
   col,
   n_bins = 10,
-  bin_equal_frequency = F,
-  bin_equal_width = F,
-  bin_equal_value = F,
+  bin_frequency = F,
+  bin_width = F,
+  bin_value = F,
   bin_kmeans = F,
   bin_xgboost = F,
+  bin_woe = F,
+  bin_logreg = F,
+  bin_mdlp = F,
   ...,
   target = NULL,
-  pretty_labels = TRUE,
-  seed = 1
+  pretty_labels = F,
+  seed = 1,
+  method = "mdlp"
 )
 }
 \arguments{
@@ -26,26 +30,34 @@ make_bins(
 
 \item{n_bins}{number of bins}
 
-\item{bin_equal_frequency}{logical, bin type equal frequency (quantile, ntile)}
+\item{bin_frequency}{logical, bin type equal frequency (quantile, ntile)}
 
-\item{bin_equal_width}{logical, bin type equal width (cut)}
+\item{bin_width}{logical, bin type equal width (cut)}
 
-\item{bin_equal_value}{logical, bin type equal value}
+\item{bin_value}{logical, bin type equal value}
 
 \item{bin_kmeans}{logical, bin type kmeans}
 
 \item{bin_xgboost}{logical, supervised binning with xgboost. target must be specified}
 
+\item{bin_woe}{logical, supervised binning with weight of evidence. BINARY target must be specified}
+
+\item{bin_logreg}{logical. supervised binning with categorical target uses stepwise logistic regression}
+
+\item{bin_mdlp}{logical, unsupervised binning with descritizer package methods}
+
 \item{...}{params to be passed to selected binning method}
 
 \item{target}{unquoted column for supervised binning}
 
-\item{pretty_labels}{logical. If true returns interval label rather than integer rank}
+\item{pretty_labels}{logical. If T returns interval label rather than integer rank}
 
 \item{seed}{seed for stochastic binning (xgboost)}
+
+\item{method}{method for bun mdlp}
 }
 \value{
-a tibble
+a data frame
 }
 \description{
 Make bins in a tidy fashion. Adds a column to your data frame containing the integer codes of the specified bins of a certain column.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/numeric_summary.R
 \name{make_labels}
 \alias{make_labels}
-\title{Title}
+\title{make labels}
 \usage{
 make_labels(mdb, original_col, bucket_col)
 }
@@ -14,9 +14,9 @@ make_labels(mdb, original_col, bucket_col)
 \item{bucket_col}{bucket col}
 }
 \value{
-
+labels
 }
 \description{
-Title
+make labels
 }
 \keyword{internal}
