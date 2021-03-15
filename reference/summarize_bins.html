@@ -138,14 +138,18 @@ but relies on regular expressions based of the `make_bins` output in order to id
 but relies on regular expressions based of the `make_bins` output in order to identify the corresponding columns.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>summarize_bins</span><span class='op'>(</span><span class='va'>mdb</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>summarize_bins</span><span class='op'>(</span><span class='va'>mdb</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mdb</th>
-      <td><p>a tibble (as returned by `make_bins`)</p></td>
+      <td><p>dataframe output from make_bins</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>optional tidyselect specification for specific cols</p></td>
     </tr>
     </table>
 
