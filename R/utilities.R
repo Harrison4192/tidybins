@@ -44,9 +44,9 @@ tidy_formula <- function(.data, target, ...){
 #' @return integer vector by default. possibly data frame or character vector
 #' @keywords internal
 #'
-select_otherwise <- function(.data, ..., otherwise = tidyselect::everything(), col = NULL, return_type = c("index", "names", "df")){
+select_otherwise <- function(.data, ..., otherwise = NULL, col = NULL, return_type = c("index", "names", "df")){
 
-  return_type <- return_type[1]
+  return_type <- match.arg(return_type)
 
   .dots <- rlang::expr(c(...))
 
@@ -76,6 +76,7 @@ select_otherwise <- function(.data, ..., otherwise = tidyselect::everything(), c
 
   out
 }
+
 
 
 

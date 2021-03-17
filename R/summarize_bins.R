@@ -13,16 +13,16 @@ summarize_bins <- function(mdb, ...){
 
   column <- .rank <- .label <-  NULL
 
-  if(!missing(...)){
-    mdb %>%
-      dplyr::select(...) %>%
-      names() %>%
-      stringr::str_subset("_[a-z][a-z][0-9]*$") -> cols
-    if(rlang::is_empty(cols)){
-      rlang::abort("you only supplied columns that weren't created by make_bins")
-    }
-  } else{
-  mdb %>% names %>% stringr::str_subset("_[a-z][a-z][0-9]*$") -> cols
+
+  mdb %>%
+    select_otherwise(...,
+                     otherwise = tidyselect::everything(),
+                     return_type = "names") %>%
+    stringr::str_subset("_[a-z][a-z][0-9]*$") -> cols
+
+
+  if(rlang::is_empty(cols)){
+    rlang::abort("you only supplied columns that weren't created by make_bins")
   }
 
   bucket_rgx <- stringr::str_c(cols,  collapse = "|")
@@ -66,7 +66,7 @@ summarize_bins <- function(mdb, ...){
       numeric_summary(original_col = !!org_col, bucket_col = !!buck) %>%
       dplyr::mutate(column := rlang::as_name(org_col),
                     method = method,
-                    n_bins = suffix_number,
+                    n_bins = as.integer(suffix_number),
                     .before = 1) %>%
       dplyr::rename_with(function(x)c(".rank", ".label"), c(4,5)) %>%
       dplyr::mutate(.rank = as.integer(.rank),

@@ -8,15 +8,7 @@
 #' @param .data a data frame
 #' @param col a column, vector of columns, or tidyselect
 #' @param n_bins number of bins
-#' @param bin_frequency logical, bin type equal frequency (quantile, ntile)
-#' @param bin_width logical, bin type equal width (cut)
-#' @param bin_value logical, bin type equal value
-#' @param bin_kmeans logical, bin type kmeans
-#' @param bin_mdlp logical, unsupervised binning with descritizer package methods
-#' @param bin_logreg logical. supervised binning with categorical target uses stepwise logistic regression
-#' @param bin_xgboost logical, supervised binning with xgboost. target must be specified
-#'
-#' @param bin_woe logical, supervised binning with weight of evidence. BINARY target must be specified
+#' @param bin_type method to make bins
 #' @param ... params to be passed to selected binning method
 #' @param target unquoted column for supervised binning
 #' @param pretty_labels logical. If T returns interval label rather than integer rank
@@ -28,14 +20,9 @@
 make_bins <- function(.data,
                            col,
                            n_bins = 10,
-                           bin_frequency = F,
-                           bin_width = F,
-                           bin_value = F,
-                           bin_kmeans = F,
-                           bin_xgboost = F,
-                           bin_woe = F,
-                           bin_logreg = F,
-                           bin_mdlp = F,
+                           bin_type = c("frequency", "width", "value",
+                                        "kmeans", "xgboost",
+                                        "woe", "logreg", "mdlp"),
                            ...,
                            target = NULL,
                            pretty_labels = F,
@@ -43,18 +30,8 @@ make_bins <- function(.data,
                            method = "mdlp"
 ){
 
-if(!any(c(
-  bin_frequency,
-  bin_width,
-  bin_value,
-  bin_kmeans,
-  bin_xgboost,
-  bin_woe,
-  bin_logreg,
-  bin_mdlp))){
-
-  bin_frequency = T
-}
+bin_type = match.arg(bin_type, several.ok = T)
+if(length(bin_type) == 8){bin_type <- "frequency"}
 
   cols <- rlang::enexprs(col)
 
@@ -65,11 +42,13 @@ if(!any(c(
 
   bin_cols %>% names() -> bin_cols_string
 
+if(any(bin_type %in% c("xgboost", "woe", "logreg"))){
   rlang::ensym(target) -> target1
   rlang::as_name(target1) -> outcome1
+  }
 
 
-  if(bin_value){
+  if("value" %in% bin_type){
 
     for(i in bin_cols_string){
     col_nm <- rlang::sym(stringr::str_glue("{i}_va{n_bins}"))
@@ -84,7 +63,7 @@ if(!any(c(
 
 
 
-  if(bin_mdlp){
+  if("mdlp" %in% bin_type){
 
     abbv <- switch(method,
                    caim         = "ci",
@@ -114,7 +93,7 @@ if(!any(c(
 
   }
 
-  if(bin_woe){
+  if("woe" %in% bin_type){
 
 
     binning <- woeBinning::woe.binning(.data, outcome1, pred.var = bin_cols_string)
@@ -136,7 +115,7 @@ if(!any(c(
 
 
 
-  if(bin_xgboost){
+  if("xgboost" %in% bin_type){
 
     .data %>%
       dplyr::summarise(dplyr::across(tidyselect::any_of(bin_cols_string), dplyr::n_distinct)) %>%
@@ -172,7 +151,7 @@ if(!any(c(
     .data %>%  make_pretty(abbv = abbv, pretty_labels = pretty_labels) -> .data
   }
 
-if(bin_logreg){
+if("logreg" %in% bin_type){
 
   .data %>% dplyr::pull(!!target1) %>% dplyr::n_distinct() -> n_levels
   my_form <- .data %>% tidy_formula(!!target1, tidyselect::any_of(bin_cols_string))
@@ -184,23 +163,23 @@ if(bin_logreg){
     make_pretty("lr", pretty_labels) -> .data
   }
 
-  if(bin_frequency){
+  if("frequency" %in% bin_type){
 
     oner_wrapper(bin_cols, .data,  "fr", "content", n_bins = n_bins, pretty_labels = pretty_labels) -> .data
   }
 
-  if(bin_width){
+  if("width" %in% bin_type){
 
     oner_wrapper(bin_cols, .data,  "wi", "length", n_bins = n_bins, pretty_labels = pretty_labels) -> .data
   }
 
-  if(bin_kmeans){
+  if("kmeans" %in% bin_type){
 
     oner_wrapper(bin_cols, .data,  abbv = "km", bin_method = "cluster", n_bins = n_bins, pretty_labels = pretty_labels) -> .data
 
   }
 
-  .data
+  .data %>% tibble::as_tibble()
 
 }
 
