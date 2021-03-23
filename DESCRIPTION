@@ -28,7 +28,6 @@ Imports:
     stats,
     scales,
     ggplot2,
-    recipes,
     rlist,
     OneR
 Suggests: 
@@ -37,5 +36,6 @@ Suggests:
     rmarkdown,
     arulesCBA,
     embed,
-    woeBinning
+    woeBinning,
+    recipes
 VignetteBuilder: knitr
