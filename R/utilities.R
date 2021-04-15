@@ -96,7 +96,7 @@ make_pretty <- function(.data, abbv, pretty_labels) {
 rename_bin_lens <- function(bin_df, abbv, cols){
 
   bin_df %>%
-    dplyr::summarize(dplyr::across(.cols = cols, .fns =  dplyr::n_distinct)) %>%
+    dplyr::summarize(dplyr::across(.cols = cols, .fns =  ~dplyr::n_distinct(remove_nas(.)))) %>%
     purrr::map_chr(1) %>%
     stringr::str_c("_", abbv, .) -> bin_lens
 
@@ -107,11 +107,71 @@ rename_bin_lens <- function(bin_df, abbv, cols){
 
 oner_wrapper <- function(bin_cols, .data, abbv, bin_method, n_bins = n_bins, pretty_labels = pretty_labels) {
 
-  bin_cols %>% OneR::bin(nbins = n_bins, method = bin_method, na.omit = F) -> bin_df
+  bin_cols %>%
+    OneR::bin(nbins = n_bins, method = bin_method, na.omit = F) %>%
+    make_na(tidyselect::everything(), vec = "NA")  -> bin_df
 
   bin_df %>% rename_bin_lens(abbv = abbv, cols = tidyselect::everything()) -> bin_df
 
   bin_df  %>% dplyr::bind_cols(.data) -> .data
 
   .data %>% make_pretty(abbv = abbv, pretty_labels = pretty_labels)
+}
+
+
+#' Make NAs
+#'
+#' Set elements to NA values using tidyselect specification.
+#' Don't use this function on columns of different modes at once.
+#' Defaults to choosing all character columns.
+#'
+#' @param .data data frame
+#' @param ... tidyselect specification
+#' @param vec vector of possible elements to replace with NA
+#'
+#' @return data frame
+#' @export
+
+make_na <- function(.data, ...,  vec = c("-", "", " ", "null")){
+
+  .data %>%
+    select_otherwise(..., where(is.character)) -> col_indx
+
+  .data %>%
+    select_otherwise(where(is.factor)) -> fct_indx
+
+  fctrs <- dplyr::intersect(col_indx, fct_indx)
+
+  .data %>%
+    dplyr::mutate(dplyr::across(tidyselect::any_of(fctrs), as.character)) -> .data1
+
+
+
+  .data1 %>%
+    dplyr::mutate(dplyr::across(tidyselect::any_of(col_indx), ~ifelse(. %in% vec, NA, .))) -> .data2
+
+  for(i in fctrs){
+
+  .data %>%
+      dplyr::pull(i) %>%
+      levels %>%
+      setdiff(vec) -> new_levls
+
+  .data2 %>%
+    dplyr::mutate(dplyr::across(tidyselect::any_of(i), ~factor(., levels = new_levls))) -> .data2}
+
+  .data2
+}
+
+
+#' remove nas
+#'
+#' @param x vec
+#' @keywords internal
+#'
+#' @return vec
+#'
+remove_nas <- function(x){
+
+  x[which(!is.na(x))]
 }

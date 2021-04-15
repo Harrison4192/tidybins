@@ -11,15 +11,16 @@
 #' @export
 numeric_summary <- function(mdb, original_col, bucket_col){
 
-  relative_value <- .count  <- .sd <-  .sum <- .min <- .max <- .uniques <- .mean<- NULL
+  relative_value <- .count  <- .sd <-  .sum <- .min <- .max <- .med <- .mean<- NULL
 
+  suppressWarnings({
   mdb %>%
     dplyr::group_by({{bucket_col}}, .add = T) %>%
     dplyr::summarize(.count = dplyr::n(),
-                     .rate = .count / nrow(mdb),
                      .uniques = dplyr::n_distinct({{original_col}}),
                      .sum = sum({{original_col}}, na.rm = T),
                      .mean = mean({{original_col}}, na.rm = T),
+                     .med = stats::median({{original_col}}, na.rm = T),
                      .min = min({{original_col}}, na.rm = T),
                      .max = max({{original_col}}, na.rm = T),
                      .sd = stats::sd({{original_col}}, na.rm = T)
@@ -29,7 +30,7 @@ numeric_summary <- function(mdb, original_col, bucket_col){
     dplyr::arrange(dplyr::desc(.max)) %>%
     dplyr::mutate(width = .max - .min) %>%
     dplyr::mutate("{{bucket_col}}_label" := factor(stringr::str_c("[",prettyNum(.min) , ",", prettyNum(.max), "]")), .after = 1, .keep = "unused")-> mdb
-
+})
   mdb
 }
 
@@ -40,7 +41,7 @@ numeric_summary <- function(mdb, original_col, bucket_col){
 #' @param bucket_col bucket col
 #' @keywords internal
 #'
-#' @return labels
+#' @return
 #'
 make_labels <- function(mdb, original_col, bucket_col){
 
