@@ -32,14 +32,15 @@ bin_cols <- function(.data,
 
 bin_type = match.arg(bin_type)
 
+  col <- rlang::enexpr(col)
   cols <- rlang::enexprs(col)
 
   .data %>%
     select_otherwise(!!!cols,
                      otherwise = rlang::is_bare_double,
-                     return_type = "df") -> bin_cols
+                     return_type = "df") -> bin_cols1
 
-  bin_cols %>% names() -> bin_cols_string
+  bin_cols1 %>% names() -> bin_cols_string
 
 if(any(bin_type %in% c("xgboost", "woe", "logreg"))){
   rlang::enexpr(target) -> target1
@@ -49,16 +50,28 @@ if(any(bin_type %in% c("xgboost", "woe", "logreg"))){
 
   if("value" %in% bin_type){
 
-    for(i in bin_cols_string){
-    col_nm <- rlang::expr(stringr::str_glue("{i}_va{n_bins}"))
 
+    col_nm <- rlang::sym(stringr::str_glue("{bin_cols_string}_va{n_bins}"))
+
+    bin_cols1 %>%
+      tibble::rownames_to_column() %>%
+      bin_equal_value(col = !!col, n_bins = n_bins) -> value_cols
+
+
+  suppressMessages({
     .data %>%
-      bin_equal_value(col = !!i, n_bins = n_bins) -> .data
+      tibble::rownames_to_column() %>%
+      dplyr::left_join(value_cols) %>%
+      dplyr::select(-tidyselect::all_of("rowname")) -> .data
+  })
+
 
     if(pretty_labels){
-      .data %>% make_labels(original_col = !!i, bucket_col = !!col_nm) -> .data
-    }}
-  }
+      .data %>% make_labels(original_col = !!col, bucket_col = !!col_nm) -> .data
+    }
+
+    }
+
 
 
 
@@ -164,17 +177,17 @@ if("logreg" %in% bin_type){
 
   if("frequency" %in% bin_type){
 
-    oner_wrapper(bin_cols, .data,  "fr", "content", n_bins = n_bins, pretty_labels = pretty_labels) -> .data
+    oner_wrapper(bin_cols1, .data,  "fr", "content", n_bins = n_bins, pretty_labels = pretty_labels) -> .data
   }
 
   if("width" %in% bin_type){
 
-    oner_wrapper(bin_cols, .data,  "wi", "length", n_bins = n_bins, pretty_labels = pretty_labels) -> .data
+    oner_wrapper(bin_cols1, .data,  "wi", "length", n_bins = n_bins, pretty_labels = pretty_labels) -> .data
   }
 
   if("kmeans" %in% bin_type){
 
-    oner_wrapper(bin_cols, .data,  abbv = "km", bin_method = "cluster", n_bins = n_bins, pretty_labels = pretty_labels) -> .data
+    oner_wrapper(bin_cols1, .data,  abbv = "km", bin_method = "cluster", n_bins = n_bins, pretty_labels = pretty_labels) -> .data
 
   }
 

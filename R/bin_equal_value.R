@@ -16,7 +16,7 @@ bin_equal_value <- function(mdb, col, n_bins = 10){
 
   col <- rlang::enexpr(col)
 
-  name <- rlang::expr(stringr::str_glue("{rlang::as_name(col)}_va{n_bins}"))
+  name <- rlang::sym(stringr::str_glue("{rlang::as_name(col)}_va{n_bins}"))
 
 
 
