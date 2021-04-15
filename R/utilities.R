@@ -34,7 +34,8 @@ tidy_formula <- function(.data, target, ...){
   charvec_to_formula(lhs_var, rhs_vars)
 }
 
-
+#' select_otherwise
+#'
 #' @param .data dataframe
 #' @param ... tidyselect
 #' @param otherwise tidyselect
