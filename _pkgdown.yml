@@ -9,8 +9,8 @@ development:
 reference:
 - title: Flagship functions
   contents:
-  - '`make_bins`'
-  - '`summarize_bins`'
+  - '`bin_cols`'
+  - '`bin_summary`'
   - '`drop_original_cols`'
 
 - title: Helper Functions

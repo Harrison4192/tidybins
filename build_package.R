@@ -1,3 +1,5 @@
+xfun::gsub_dir(dir = "R", pattern = "make_bins", replacement = "bin_cols")
+xfun::gsub_dir( pattern = "summarize_bins", replacement = "bin_summary")
 
 # load developer libraries ------------------------------------------------
 

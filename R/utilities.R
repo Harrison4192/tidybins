@@ -106,7 +106,7 @@ rename_bin_lens <- function(bin_df, abbv, cols){
 
 oner_wrapper <- function(bin_cols, .data, abbv, bin_method, n_bins = n_bins, pretty_labels = pretty_labels) {
 
-  bin_cols %>% OneR::bin(nbins = n_bins, method = bin_method) -> bin_df
+  bin_cols %>% OneR::bin(nbins = n_bins, method = bin_method, na.omit = F) -> bin_df
 
   bin_df %>% rename_bin_lens(abbv = abbv, cols = tidyselect::everything()) -> bin_df
 

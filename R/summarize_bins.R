@@ -1,15 +1,15 @@
 #' summarize bins
 #'
-#' Returns a summary of all bins created by `make_bins` in a data frame. Takes no arguments other than the data frame
-#' but relies on regular expressions based of the `make_bins` output in order to identify the corresponding columns.
+#' Returns a summary of all bins created by `bin_cols` in a data frame. Takes no arguments other than the data frame
+#' but relies on regular expressions based of the `bin_cols` output in order to identify the corresponding columns.
 #'
 #'
-#' @param mdb dataframe output from make_bins
+#' @param mdb dataframe output from bin_cols
 #' @param ... optional tidyselect specification for specific cols
 #'
 #' @return a tibble
 #' @export
-summarize_bins <- function(mdb, ...){
+bin_summary <- function(mdb, ...){
 
   column <- .rank <- .label <-  NULL
 
@@ -22,7 +22,7 @@ summarize_bins <- function(mdb, ...){
 
 
   if(rlang::is_empty(cols)){
-    rlang::abort("you only supplied columns that weren't created by make_bins")
+    rlang::abort("you only supplied columns that weren't created by bin_cols")
   }
 
   bucket_rgx <- stringr::str_c(cols,  collapse = "|")

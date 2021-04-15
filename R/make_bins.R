@@ -17,7 +17,7 @@
 #'
 #' @return a data frame
 #' @export
-make_bins <- function(.data,
+bin_cols <- function(.data,
                            col,
                            n_bins = 10,
                            bin_type = c("frequency", "width", "value",
@@ -30,8 +30,7 @@ make_bins <- function(.data,
                            method = "mdlp"
 ){
 
-bin_type = match.arg(bin_type, several.ok = T)
-if(length(bin_type) == 8){bin_type <- "frequency"}
+bin_type = match.arg(bin_type)
 
   cols <- rlang::enexprs(col)
 
@@ -43,7 +42,7 @@ if(length(bin_type) == 8){bin_type <- "frequency"}
   bin_cols %>% names() -> bin_cols_string
 
 if(any(bin_type %in% c("xgboost", "woe", "logreg"))){
-  rlang::ensym(target) -> target1
+  rlang::enexpr(target) -> target1
   rlang::as_name(target1) -> outcome1
   }
 
@@ -51,7 +50,7 @@ if(any(bin_type %in% c("xgboost", "woe", "logreg"))){
   if("value" %in% bin_type){
 
     for(i in bin_cols_string){
-    col_nm <- rlang::sym(stringr::str_glue("{i}_va{n_bins}"))
+    col_nm <- rlang::expr(stringr::str_glue("{i}_va{n_bins}"))
 
     .data %>%
       bin_equal_value(col = !!i, n_bins = n_bins) -> .data
