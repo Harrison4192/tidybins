@@ -18,6 +18,7 @@ bin_summary <- function(mdb, ...){
     select_otherwise(...,
                      otherwise = tidyselect::everything(),
                      return_type = "names") %>%
+    enc2utf8() %>%
     stringr::str_subset("_[a-z][a-z][0-9]*$") -> cols
 
 
@@ -27,7 +28,7 @@ bin_summary <- function(mdb, ...){
 
   bucket_rgx <- stringr::str_c(cols,  collapse = "|")
 
-  mdb %>% names %>% stringr::str_subset(bucket_rgx) %>% rlang::syms()  -> bucks
+  cols %>%  rlang::syms()  -> bucks
 
 
   blist <- list()
@@ -35,7 +36,7 @@ bin_summary <- function(mdb, ...){
 
   for(buck in bucks){
 
-  mdb %>% dplyr::select(!!buck) %>% names() -> bnames
+  mdb %>% dplyr::select(!!buck) %>% names() %>% enc2utf8() -> bnames
 
   bnames %>% stringr::str_extract("[a-z][a-z][0-9]*$")-> suffix
   suffix %>% stringr::str_remove("[0-9]*$")  -> suffix_letter
