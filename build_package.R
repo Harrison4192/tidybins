@@ -8,7 +8,7 @@ xfun::gsub_dir( pattern = "summarize_bins", replacement = "bin_summary")
 library(pacman)
 p_load(rstudioapi, devtools, roxygen2, usethis, pkgdown,
        ymlthis, magrittr, fs, covr, gitcreds, credentials,
-       badger, hexSticker, gh, xfun, tidyverse)
+       badger, hexSticker, gh, xfun, tidyverse, strex)
 
 
 # add this file to .Rbuildignore ------------------------------------------

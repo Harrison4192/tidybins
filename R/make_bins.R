@@ -20,9 +20,7 @@
 bin_cols <- function(.data,
                            col,
                            n_bins = 10,
-                           bin_type = c("frequency", "width", "value",
-                                        "kmeans", "xgboost",
-                                        "woe", "logreg", "mdlp"),
+                           bin_type = "frequency",
                            ...,
                            target = NULL,
                            pretty_labels = F,
@@ -30,7 +28,9 @@ bin_cols <- function(.data,
                            method = "mdlp"
 ){
 
-bin_type = match.arg(bin_type)
+bin_type = strex::match_arg(arg = bin_type, choices = c("frequency", "width", "value",
+                                                        "kmeans", "xgboost",
+                                                        "woe", "logreg", "mdlp"), several_ok = T, ignore_case = T)
 
   col <- rlang::enexpr(col)
   cols <- rlang::enexprs(col)
