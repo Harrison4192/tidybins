@@ -57,7 +57,7 @@ usethis::use_package("badger", type = "Suggests")
 
 usethis::use_vignette("MakeTidyBins")
 
-
+usethis::use_r("add_clusters")
 # edit R profile ----------------------------------------------------------
 
 
@@ -110,7 +110,7 @@ usethis::use_github_pages()
 
 # build and check ---------------------------------------------------------
 
-document()
+devtools::document()
 build_readme()
 build_site()
 check()

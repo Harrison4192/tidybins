@@ -14,7 +14,7 @@ make_labels(mdb, original_col, bucket_col)
 \item{bucket_col}{bucket col}
 }
 \value{
-labels
+
 }
 \description{
 make labels
