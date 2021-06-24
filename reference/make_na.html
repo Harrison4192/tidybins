@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>make labels — make_labels • tidyBins</title>
+<title>Make NAs — make_na • tidyBins</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,10 @@
 
 
 
-<meta property="og:title" content="make labels — make_labels" />
-<meta property="og:description" content="make labels" />
+<meta property="og:title" content="Make NAs — make_na" />
+<meta property="og:description" content="Set elements to NA values using tidyselect specification.
+Don't use this function on columns of different modes at once.
+Defaults to choosing all character columns." />
 
 
 
@@ -127,39 +129,39 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>make labels</h1>
-    <small class="dont-index">Source: <a href='https://github.com/Harrison4192/tidyBins/blob/master/R/numeric_summary.R'><code>R/numeric_summary.R</code></a></small>
-    <div class="hidden name"><code>make_labels.Rd</code></div>
+    <h1>Make NAs</h1>
+    <small class="dont-index">Source: <a href='https://github.com/Harrison4192/tidyBins/blob/master/R/utilities.R'><code>R/utilities.R</code></a></small>
+    <div class="hidden name"><code>make_na.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>make labels</p>
+    <p>Set elements to NA values using tidyselect specification.
+Don't use this function on columns of different modes at once.
+Defaults to choosing all character columns.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>make_labels</span><span class='op'>(</span><span class='va'>mdb</span>, <span class='va'>original_col</span>, <span class='va'>bucket_col</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>make_na</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>...</span>, vec <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"-"</span>, <span class='st'>""</span>, <span class='st'>" "</span>, <span class='st'>"null"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>mdb</th>
-      <td><p>dataframe</p></td>
+      <th>.data</th>
+      <td><p>data frame</p></td>
     </tr>
     <tr>
-      <th>original_col</th>
-      <td><p>original col</p></td>
+      <th>...</th>
+      <td><p>tidyselect specification</p></td>
     </tr>
     <tr>
-      <th>bucket_col</th>
-      <td><p>bucket col</p></td>
+      <th>vec</th>
+      <td><p>vector of possible elements to replace with NA</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    
-
-
+    <p>data frame</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

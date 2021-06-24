@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>make labels — make_labels • tidyBins</title>
+<title>add_clusters — add_clusters • tidyBins</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="make labels — make_labels" />
-<meta property="og:description" content="make labels" />
+<meta property="og:title" content="add_clusters — add_clusters" />
+<meta property="og:description" content="add_clusters" />
 
 
 
@@ -127,39 +127,41 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>make labels</h1>
-    <small class="dont-index">Source: <a href='https://github.com/Harrison4192/tidyBins/blob/master/R/numeric_summary.R'><code>R/numeric_summary.R</code></a></small>
-    <div class="hidden name"><code>make_labels.Rd</code></div>
+    <h1>add_clusters</h1>
+    <small class="dont-index">Source: <a href='https://github.com/Harrison4192/tidyBins/blob/master/R/add_clusters.R'><code>R/add_clusters.R</code></a></small>
+    <div class="hidden name"><code>add_clusters.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>make labels</p>
+    <p>add_clusters</p>
     </div>
 
-    <pre class="usage"><span class='fu'>make_labels</span><span class='op'>(</span><span class='va'>mdb</span>, <span class='va'>original_col</span>, <span class='va'>bucket_col</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>add_clusters</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>...</span>, n_clusters <span class='op'>=</span> <span class='fl'>4</span>, cluster_name <span class='op'>=</span> <span class='st'>"cluster"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>mdb</th>
+      <th>.data</th>
       <td><p>dataframe</p></td>
     </tr>
     <tr>
-      <th>original_col</th>
-      <td><p>original col</p></td>
+      <th>...</th>
+      <td><p>columns to cluster</p></td>
     </tr>
     <tr>
-      <th>bucket_col</th>
-      <td><p>bucket col</p></td>
+      <th>n_clusters</th>
+      <td><p>integer</p></td>
+    </tr>
+    <tr>
+      <th>cluster_name</th>
+      <td><p>column name</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    
-
-
+    <p>data frame</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
