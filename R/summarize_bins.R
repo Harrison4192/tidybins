@@ -69,9 +69,8 @@ bin_summary <- function(mdb, ...){
                     method = method,
                     n_bins = as.integer(suffix_number),
                     .before = 1) %>%
-      dplyr::rename_with(function(x)c(".rank", ".label"), c(4,5)) %>%
-      dplyr::mutate(.rank = as.integer(.rank),
-                    .label = as.character(.label)) -> mdb1
+      dplyr::rename_with(function(x)c(".rank"), c(4)) %>%
+      dplyr::mutate(.rank = as.integer(.rank)) -> mdb1
 
   blist %>% rlist::list.append(mdb1) -> blist
   }

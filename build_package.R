@@ -1,4 +1,4 @@
-xfun::gsub_dir(dir = "R", pattern = "make_bins", replacement = "bin_cols")
+xfun::gsub_dir(pattern = "tidyBins", replacement = "tidybins")
 xfun::gsub_dir( pattern = "summarize_bins", replacement = "bin_summary")
 
 # load developer libraries ------------------------------------------------
@@ -8,7 +8,7 @@ xfun::gsub_dir( pattern = "summarize_bins", replacement = "bin_summary")
 library(pacman)
 p_load(rstudioapi, devtools, roxygen2, usethis, pkgdown,
        ymlthis, magrittr, fs, covr, gitcreds, credentials,
-       badger, hexSticker, gh, xfun, tidyverse, strex)
+       badger, hexSticker, gh, xfun, tidyverse)
 
 
 # add this file to .Rbuildignore ------------------------------------------
@@ -111,9 +111,9 @@ usethis::use_github_pages()
 # build and check ---------------------------------------------------------
 
 devtools::document()
-build_readme()
-build_site()
-check()
-preview_site()
+devtools::build_readme()
+devtools::build_site()
+devtools::check()
+devtools::preview_site()
 
 
