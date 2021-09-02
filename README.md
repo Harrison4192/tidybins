@@ -21,7 +21,7 @@ mehods in a tidy format.
 
 ## Installation
 
-You can install the released version of tidybins from
+You can Install the released version of tidybins from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
