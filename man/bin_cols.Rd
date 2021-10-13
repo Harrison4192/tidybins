@@ -51,7 +51,7 @@ Description of the arguments for bin_type
   \item{\emph{width (wi)}}{ create bins of equal numeric width. Wraps \code{\link[OneR]{bin}} with method "length"}
   \item{\emph{kmeans (km)}}{ create bins using 1-dimensional kmeans. Wraps \code{\link[OneR]{bin}} with method "clusters"}
   \item{\emph{value (va)}}{ each bin has equal sum of values}
-  \item{\emph{xgboost (xg)}}{ column is binned by best predictor of a target column using  \code{\link[embed]{step_discretize_xgboost}} }
+  \item{\emph{xgboost (xg)}}{ column is binned by best predictor of a target column using  \code{\link[embed]{step_discretize_xgb}} }
   \item{\emph{cart (ca)}}{ if the col does not have enough distinct values, xgboost will fail and automatically revert to \code{\link[embed]{step_discretize_cart}} }
   \item{\emph{woe (wo)}}{ column is binned by weight of evidence. Requires binary target}
   \item{\emph{logreg (lr)}}{ column is binned by logistic regression. Requires binary target.}
@@ -65,7 +65,8 @@ bin_cols(Sepal.Width, n_bins = 5, pretty_labels = TRUE) \%>\%
 bin_cols(Petal.Width, n_bins = 3, bin_type = c("width", "kmeans")) \%>\%
 bin_cols(Sepal.Width, bin_type = "xgboost", target = Species, seed = 1) -> iris1
 
-#binned columns are named by original name + method abbreviation + number bins created. Sometimes the actual number of bins is less than the specified number if the col lacks enough variance.
+#binned columns are named by original name + method abbreviation + number bins created.
+#Sometimes the actual number of bins is less than n_bins if the col lacks enough variance.
 iris1 \%>\%
 print(width = Inf)
 
