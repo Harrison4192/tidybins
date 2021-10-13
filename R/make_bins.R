@@ -1,9 +1,23 @@
-#' Make Bins
+#' Bin Cols
 #'
 #' Make bins in a tidy fashion. Adds a column to your data frame containing the integer codes of the specified bins of a certain column.
-#' Bin types are input as logical statements. Multiple bin types can be set to `TRUE`, creating multiple types of bins for one column.
 #' Specifying multiple columns is only intended for supervised binning, so mutliple columns can be simultaneously binned
 #' optimally with respect to a target variable.
+#'
+#'
+#' Description of the arguments for bin_type
+#'
+#' \itemize{
+#'   \item{\emph{frequency (fr)}}{ creates bins of equal content via quantiles. Wraps \code{\link[OneR]{bin}} with method "content". Similar to  \code{\link[dplyr]{ntile}}}
+#'   \item{\emph{width (wi)}}{ create bins of equal numeric width. Wraps \code{\link[OneR]{bin}} with method "length"}
+#'   \item{\emph{kmeans (km)}}{ create bins using 1-dimensional kmeans. Wraps \code{\link[OneR]{bin}} with method "clusters"}
+#'   \item{\emph{value (va)}}{ each bin has equal sum of values}
+#'   \item{\emph{xgboost (xg)}}{ column is binned by best predictor of a target column using  \code{\link[embed]{step_discretize_xgboost}} }
+#'   \item{\emph{cart (ca)}}{ if the col does not have enough distinct values, xgboost will fail and automatically revert to \code{\link[embed]{step_discretize_cart}} }
+#'   \item{\emph{woe (wo)}}{ column is binned by weight of evidence. Requires binary target}
+#'   \item{\emph{logreg (lr)}}{ column is binned by logistic regression. Requires binary target.}
+#'   \item{\emph{mdlp}}{ uses the \code{\link[arulesCBA]{discretizeDF.supervised}} algorithm with a variety of methods.}
+#' }
 #'
 #' @param .data a data frame
 #' @param col a column, vector of columns, or tidyselect
@@ -17,13 +31,28 @@
 #'
 #' @return a data frame
 #' @export
+#'
+#' @examples
+#'
+#' iris %>%
+#' bin_cols(Sepal.Width, n_bins = 5, pretty_labels = TRUE) %>%
+#' bin_cols(Petal.Width, n_bins = 3, bin_type = c("width", "kmeans")) %>%
+#' bin_cols(Sepal.Width, bin_type = "xgboost", target = Species, seed = 1) -> iris1
+#'
+#' #binned columns are named by original name + method abbreviation + number bins created. Sometimes the actual number of bins is less than the specified number if the col lacks enough variance.
+#' iris1 %>%
+#' print(width = Inf)
+#'
+#' iris1 %>%
+#' bin_summary() %>%
+#' print(width = Inf)
 bin_cols <- function(.data,
                            col,
                            n_bins = 10,
                            bin_type = "frequency",
                            ...,
                            target = NULL,
-                           pretty_labels = F,
+                           pretty_labels = FALSE,
                            seed = 1,
                            method = "mdlp"
 ){

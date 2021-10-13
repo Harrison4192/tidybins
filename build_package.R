@@ -48,7 +48,7 @@ usethis::use_package("arulesCBA")
 usethis::use_package("rlist")
 usethis::use_package("embed")
 
-
+usethis::use_gpl3_license()
 
 usethis::use_package("rlang")
 usethis::use_package("lubridate")
@@ -114,6 +114,14 @@ devtools::document()
 devtools::build_readme()
 devtools::build_site()
 devtools::check()
+devtools::build_vignettes()
 devtools::preview_site()
 
+
+devtools::spell_check()
+devtools::release(check = T)
+
+usethis::use_cran_comments(open = rlang::is_interactive())
+devtools::check_win_devel()
+devtools::check_rhub()
 

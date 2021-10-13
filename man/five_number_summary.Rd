@@ -15,3 +15,8 @@ a tibble
 \description{
 The five number summary of a numeric vector you would get from `summary` but returned with a tidy output.
 }
+\examples{
+
+iris$Petal.Width \%>\%
+five_number_summary()
+}

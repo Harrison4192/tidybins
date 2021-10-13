@@ -18,3 +18,9 @@ a tibble
 Returns a summary of all bins created by `bin_cols` in a data frame. Takes no arguments other than the data frame
 but relies on regular expressions based of the `bin_cols` output in order to identify the corresponding columns.
 }
+\examples{
+
+iris \%>\%
+bin_cols(Sepal.Width) \%>\%
+bin_summary()
+}

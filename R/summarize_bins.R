@@ -9,13 +9,19 @@
 #'
 #' @return a tibble
 #' @export
+#'
+#' @examples
+#'
+#' iris %>%
+#' bin_cols(Sepal.Width) %>%
+#' bin_summary()
 bin_summary <- function(mdb, ...){
 
   column <- .rank <- .label <-  NULL
 
 
   mdb %>%
-    select_otherwise(...,
+    framecleaner::select_otherwise(...,
                      otherwise = tidyselect::everything(),
                      return_type = "names") %>%
     enc2utf8() %>%

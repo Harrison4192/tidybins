@@ -9,3 +9,5 @@
 ^LICENSE\.md$
 ^\.github$
 ^/Users/Harrison/Desktop/packages/tidyBins/_pkgdown\.yml$
+^doc$
+^Meta$

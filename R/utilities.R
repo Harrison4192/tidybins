@@ -34,49 +34,6 @@ tidy_formula <- function(.data, target, ...){
   charvec_to_formula(lhs_var, rhs_vars)
 }
 
-#' select_otherwise
-#'
-#' @param .data dataframe
-#' @param ... tidyselect
-#' @param otherwise tidyselect
-#' @param col tidyselect
-#' @param return_type choose to return column index, names, or df. defaults to index
-#'
-#' @return integer vector by default. possibly data frame or character vector
-#' @keywords internal
-#'
-select_otherwise <- function(.data, ..., otherwise = NULL, col = NULL, return_type = c("index", "names", "df")){
-
-  return_type <- match.arg(return_type)
-
-  .dots <- rlang::expr(c(...))
-
-
-  col <- rlang::enexpr(col)
-  otherwise = rlang::enexpr(otherwise)
-
-
-  tidyselect::eval_select(.dots, data = .data) -> eval1
-
-  if(length(eval1) == 0){
-    tidyselect::eval_select( otherwise, data = .data) -> eval1
-  }
-
-  tidyselect::eval_select(col, data = .data) %>%
-    c(eval1) %>% sort() -> eval1
-
-
-  if(return_type == "df"){
-
-    out <- .data %>% dplyr::select(tidyselect::any_of(eval1))
-  } else if(return_type == "names"){
-    out <- names(eval1)
-  } else{
-    out <- eval1
-  }
-
-  out
-}
 
 
 
@@ -105,62 +62,30 @@ rename_bin_lens <- function(bin_df, abbv, cols){
     dplyr::rename_with( .fn = ~stringr::str_c(., bin_lens), .cols = cols)
 }
 
+#' one_wrapper
+#'
+#' @param bin_cols cols
+#' @param .data dataframe
+#' @param abbv char
+#' @param bin_method char. bin method.
+#' @param n_bins integer. number of bins
+#' @param pretty_labels pretty_labels
+#' @importFrom framecleaner make_na
+#'
+#' @return output
+#' @export
+#'
 oner_wrapper <- function(bin_cols, .data, abbv, bin_method, n_bins = n_bins, pretty_labels = pretty_labels) {
 
   bin_cols %>%
     OneR::bin(nbins = n_bins, method = bin_method, na.omit = F) %>%
-    make_na(tidyselect::everything(), vec = "NA")  -> bin_df
+    framecleaner::make_na(tidyselect::everything(), vec = "NA")  -> bin_df
 
   bin_df %>% rename_bin_lens(abbv = abbv, cols = tidyselect::everything()) -> bin_df
 
   bin_df  %>% dplyr::bind_cols(.data) -> .data
 
   .data %>% make_pretty(abbv = abbv, pretty_labels = pretty_labels)
-}
-
-
-#' Make NAs
-#'
-#' Set elements to NA values using tidyselect specification.
-#' Don't use this function on columns of different modes at once.
-#' Defaults to choosing all character columns.
-#'
-#' @param .data data frame
-#' @param ... tidyselect specification
-#' @param vec vector of possible elements to replace with NA
-#'
-#' @return data frame
-#' @export
-
-make_na <- function(.data, ...,  vec = c("-", "", " ", "null")){
-
-  .data %>%
-    select_otherwise(..., where(is.character)) -> col_indx
-
-  .data %>%
-    select_otherwise(where(is.factor)) -> fct_indx
-
-  fctrs <- dplyr::intersect(col_indx, fct_indx)
-
-  .data %>%
-    dplyr::mutate(dplyr::across(tidyselect::any_of(fctrs), as.character)) -> .data1
-
-
-
-  .data1 %>%
-    dplyr::mutate(dplyr::across(tidyselect::any_of(col_indx), ~ifelse(. %in% vec, NA, .))) -> .data2
-
-  for(i in fctrs){
-
-  .data %>%
-      dplyr::pull(i) %>%
-      levels %>%
-      setdiff(vec) -> new_levls
-
-  .data2 %>%
-    dplyr::mutate(dplyr::across(tidyselect::any_of(i), ~factor(., levels = new_levls))) -> .data2}
-
-  .data2
 }
 
 

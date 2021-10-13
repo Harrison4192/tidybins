@@ -11,7 +11,7 @@
 #' @export
 numeric_summary <- function(mdb, original_col, bucket_col){
 
-  relative_value <- .count  <- .sd <-  .sum <- .min <- .max <- .med <- .mean<- NULL
+  .uniques <- relative_value <- .count  <- .sd <-  .sum <- .min <- .max <- .med <- .mean<- NULL
 
   suppressWarnings({
   mdb %>%
@@ -41,7 +41,7 @@ numeric_summary <- function(mdb, original_col, bucket_col){
 #' @param bucket_col bucket col
 #' @keywords internal
 #'
-#' @return
+#' @return dataframe
 #'
 make_labels <- function(mdb, original_col, bucket_col){
 

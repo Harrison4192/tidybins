@@ -6,6 +6,11 @@
 #'
 #' @return a tibble
 #' @export
+#'
+#' @examples
+#'
+#' iris$Petal.Width %>%
+#' five_number_summary()
 five_number_summary <- function(x) {
   x %>%
     summary %>%

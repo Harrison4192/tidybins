@@ -4,6 +4,7 @@
 #' @param ... columns to cluster
 #' @param n_clusters integer
 #' @param cluster_name column name
+#' @importFrom framecleaner select_otherwise
 #'
 #' @return data frame
 #' @export
@@ -15,7 +16,7 @@ add_clusters <- function(.data, ..., n_clusters = 4, cluster_name = "cluster"){
   ClusterR::KMeans_rcpp(df1, clusters = n_clusters, num_init = 5) -> c_out
 
   .data %>%
-    mutate("{cluster_name}" := LETTERS[c_out$clusters]) -> .data1
+    dplyr::mutate("{cluster_name}" := LETTERS[c_out$clusters]) -> .data1
 
   .data1
 
