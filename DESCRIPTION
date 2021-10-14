@@ -9,7 +9,6 @@ Authors@R:
            email = "Harrison4192@gmail.com")
 Maintainer: Harrison Tietze <Harrison4192@gmail.com>
 Description: Multiple ways to bin numeric columns with a tidy output. Wraps a variety of existing binning methods into one function, and includes a new method for binning by equal value, which is useful for sales data. Provides a function to automatically summarize the properties of the binned columns. 
-License: GPL (>= 3) + file LICENSE
 Encoding: UTF-8
 RoxygenNote: 7.1.1
 URL: https://github.com/Harrison4192/tidybins
@@ -42,3 +41,4 @@ Suggests:
     woeBinning,
     recipes
 VignetteBuilder: knitr
+License: GPL (>= 3)
