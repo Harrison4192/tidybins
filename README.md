@@ -14,7 +14,6 @@ status](https://www.r-pkg.org/badges/version/tidybins)](https://CRAN.R-project.o
 [![](http://cranlogs.r-pkg.org/badges/grand-total/tidybins?color=blue)](https://cran.r-project.org/package=tidybins)
 [![](https://img.shields.io/github/languages/code-size/Harrison4192/tidybins.svg)](https://github.com/Harrison4192/tidybins)
 [![](https://img.shields.io/github/last-commit/Harrison4192/tidybins.svg)](https://github.com/Harrison4192/tidybins/commits/master)
-[![R-CMD-check](https://github.com/Harrison4192/tidyBins/workflows/R-CMD-check/badge.svg)](https://github.com/Harrison4192/tidyBins/actions)
 <!-- badges: end -->
 
 The goal of tidybins is to let users bin numeric data using different
