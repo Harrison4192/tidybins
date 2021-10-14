@@ -32,9 +32,9 @@ Imports:
     strex,
     ClusterR,
     framecleaner,
-    xgboost
+    xgboost,
+    badger
 Suggests: 
-    badger,
     knitr,
     rmarkdown,
     arulesCBA,
