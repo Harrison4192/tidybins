@@ -27,7 +27,7 @@
 #' @param target unquoted column for supervised binning
 #' @param pretty_labels logical. If T returns interval label rather than integer rank
 #' @param seed seed for stochastic binning (xgboost)
-#' @param method method for bun mdlp
+#' @param method method for bin mdlp
 #'
 #' @return a data frame
 #' @export

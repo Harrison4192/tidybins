@@ -1,7 +1,7 @@
 #' numeric summary
 #'
 #' This function summarizes an arbitrary bin column, with respect to its original column. Can be used to summarize
-#' bins created from any package.
+#' bins created from any package, or any arbitrary categorical column paired with a numeric column.
 #'
 #' @param mdb a data frame
 #' @param original_col original numeric column
@@ -9,6 +9,12 @@
 #'
 #' @return a tibble
 #' @export
+#'
+#' @examples
+#'
+#' iris %>%
+#' numeric_summary(original_col = Sepal.Length, bucket_col = Species)
+#'
 numeric_summary <- function(mdb, original_col, bucket_col){
 
   .uniques <- relative_value <- .count  <- .sd <-  .sum <- .min <- .max <- .med <- .mean<- NULL

@@ -2,7 +2,8 @@
 #'
 #' Bins a numeric column such that each bin contains 10% of the total value (sum) of that column.
 #' Intended for positive numeric vectors that make sense to sum, such as sales. Negative and NAs get treated as 0.
-#' The function never puts two rows with the same value into different bins.
+#' The function never puts two rows with the same value into different bins. Accessed by the "value" method of the
+#' bin_cols function.
 #'
 #'@param mdb dataframe
 #' @param col a numeric vector

@@ -12,6 +12,8 @@ reference:
   - '`bin_cols`'
   - '`bin_summary`'
   - '`drop_original_cols`'
+  - '`add_clusters`'
+
 
 - title: Helper Functions
   contents:

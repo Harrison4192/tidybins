@@ -9,7 +9,7 @@ add_clusters(.data, ..., n_clusters = 4, cluster_name = "cluster")
 \arguments{
 \item{.data}{dataframe}
 
-\item{...}{columns to cluster}
+\item{...}{columns to cluster (tidyselect)}
 
 \item{n_clusters}{integer}
 
@@ -19,5 +19,17 @@ add_clusters(.data, ..., n_clusters = 4, cluster_name = "cluster")
 data frame
 }
 \description{
-add_clusters
+Wraps \code{\link[ClusterR]{KMeans_rcpp}} to create a column that is a cluster formed from select columns in the data frame.
+Clusters names are specified by capital letters.
+}
+\examples{
+
+iris \%>\%
+tibble::as_tibble() \%>\%
+add_clusters(Sepal.Width, Sepal.Length, n_clusters = 3, cluster_name = "Sepal_Cluster") -> iris1
+
+iris1
+
+iris1 \%>\%
+numeric_summary(original_col = Sepal.Width, bucket_col = Sepal_Cluster)
 }

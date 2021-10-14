@@ -18,5 +18,11 @@ a tibble
 }
 \description{
 This function summarizes an arbitrary bin column, with respect to its original column. Can be used to summarize
-bins created from any package.
+bins created from any package, or any arbitrary categorical column paired with a numeric column.
+}
+\examples{
+
+iris \%>\%
+numeric_summary(original_col = Sepal.Length, bucket_col = Species)
+
 }

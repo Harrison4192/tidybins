@@ -33,7 +33,7 @@ bin_cols(
 
 \item{seed}{seed for stochastic binning (xgboost)}
 
-\item{method}{method for bun mdlp}
+\item{method}{method for bin mdlp}
 }
 \value{
 a data frame

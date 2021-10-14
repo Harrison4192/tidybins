@@ -1,6 +1,33 @@
-drop_original_cols <- function(.data, restore_names = F){
+#' Drop Original Cols
+#'
+#' Drops the original column from the dataframe once bins are made.  Throws an error if the same column has multiple bin cols.
+#'
+#'
+#' @param .data dataframe output from bin_cols
+#' @param ... tidyselect. default chooses all cols created from binning
+#' @param restore_names Logical, default FALSE. rename the binned cols with the original column names?
+#'
+#' @return dataframe
+#' @export
+#'
+#' @examples
+#'
+#' iris %>%
+#'  bin_cols(Sepal.Length) %>%
+#'  bin_cols(Sepal.Width, pretty_labels = TRUE) -> iris1
+#'
+#' iris1
+#'
+#' iris1 %>%
+#'  drop_original_cols(restore_names = TRUE)
+#'
+#' iris1 %>%
+#'  drop_original_cols(restore_names = FALSE)
+drop_original_cols <- function(.data, ..., restore_names = FALSE){
 
-  .data %>% names %>% stringr::str_subset("_[a-z][a-z][0-9]*$") -> new_cols
+  .data %>%
+    select_otherwise(..., otherwise = tidyselect::matches("_[a-z][a-z][0-9]*$"), return_type = "names") -> new_cols
+
   new_cols %>% stringr::str_remove("_[a-z][a-z][0-9]*$")  -> org_col
 
   .data %>%
