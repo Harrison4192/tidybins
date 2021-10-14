@@ -112,16 +112,16 @@
 <span class="co">#&gt; # A tibble: 1,000 × 2</span>
 <span class="co">#&gt;    SALES SALES_va10</span>
 <span class="co">#&gt;    &lt;int&gt;      &lt;int&gt;</span>
-<span class="co">#&gt;  1  7025          1</span>
-<span class="co">#&gt;  2 13334          9</span>
-<span class="co">#&gt;  3 10234          5</span>
-<span class="co">#&gt;  4 10130          4</span>
-<span class="co">#&gt;  5 11209          6</span>
-<span class="co">#&gt;  6 12952          8</span>
-<span class="co">#&gt;  7 12455          8</span>
-<span class="co">#&gt;  8  7536          2</span>
-<span class="co">#&gt;  9 10872          5</span>
-<span class="co">#&gt; 10  5566          1</span>
+<span class="co">#&gt;  1  9262          3</span>
+<span class="co">#&gt;  2  9715          4</span>
+<span class="co">#&gt;  3  7841          2</span>
+<span class="co">#&gt;  4 11226          6</span>
+<span class="co">#&gt;  5  7092          1</span>
+<span class="co">#&gt;  6 13453          8</span>
+<span class="co">#&gt;  7 11634          6</span>
+<span class="co">#&gt;  8  5279          1</span>
+<span class="co">#&gt;  9 11443          6</span>
+<span class="co">#&gt; 10  8155          2</span>
 <span class="co">#&gt; # … with 990 more rows</span></code></pre></div>
 <p>Notice that the sum is equal across bins.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -131,28 +131,28 @@
 <span class="co">#&gt; # A tibble: 10 × 14</span>
 <span class="co">#&gt;    column method      n_bins .rank  .min  .mean  .max .count .uniques</span>
 <span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;        &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;dbl&gt; &lt;int&gt;  &lt;int&gt;    &lt;int&gt;</span>
-<span class="co">#&gt;  1 SALES  equal value     10    10 14440 15625. 20541     65       65</span>
-<span class="co">#&gt;  2 SALES  equal value     10     9 12984 13609. 14401     74       73</span>
-<span class="co">#&gt;  3 SALES  equal value     10     8 12197 12587. 12967     80       78</span>
-<span class="co">#&gt;  4 SALES  equal value     10     7 11484 11811. 12183     86       80</span>
-<span class="co">#&gt;  5 SALES  equal value     10     6 10909 11213. 11466     90       85</span>
-<span class="co">#&gt;  6 SALES  equal value     10     5 10220 10545. 10898     96       90</span>
-<span class="co">#&gt;  7 SALES  equal value     10     4  9488  9833. 10216    102       97</span>
-<span class="co">#&gt;  8 SALES  equal value     10     3  8643  9059.  9485    112      104</span>
-<span class="co">#&gt;  9 SALES  equal value     10     2  7453  8038.  8642    125      119</span>
-<span class="co">#&gt; 10 SALES  equal value     10     1  1554  5923.  7448    170      164</span>
+<span class="co">#&gt;  1 SALES  equal value     10    10 14804 16250. 19071     62       60</span>
+<span class="co">#&gt;  2 SALES  equal value     10     9 13582 14220. 14794     71       69</span>
+<span class="co">#&gt;  3 SALES  equal value     10     8 12570 12992. 13526     78       76</span>
+<span class="co">#&gt;  4 SALES  equal value     10     7 11782 12115. 12567     83       79</span>
+<span class="co">#&gt;  5 SALES  equal value     10     6 11054 11450. 11775     88       80</span>
+<span class="co">#&gt;  6 SALES  equal value     10     5 10187 10620. 11043     95       90</span>
+<span class="co">#&gt;  7 SALES  equal value     10     4  9435  9831. 10186    102       96</span>
+<span class="co">#&gt;  8 SALES  equal value     10     3  8471  8969.  9419    112      109</span>
+<span class="co">#&gt;  9 SALES  equal value     10     2  7130  7808.  8468    129      126</span>
+<span class="co">#&gt; 10 SALES  equal value     10     1   888  5591.  7129    180      171</span>
 <span class="co">#&gt;    relative_value    .sum   .med   .sd width</span>
 <span class="co">#&gt;             &lt;dbl&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;</span>
-<span class="co">#&gt;  1          100   1015616 15222  1329.  6101</span>
-<span class="co">#&gt;  2           87.1 1007032 13559   408.  1417</span>
-<span class="co">#&gt;  3           80.6 1006931 12591   226.   770</span>
-<span class="co">#&gt;  4           75.6 1015715 11800.  209.   699</span>
-<span class="co">#&gt;  5           71.8 1009161 11227   162.   557</span>
-<span class="co">#&gt;  6           67.5 1012328 10557   196.   678</span>
-<span class="co">#&gt;  7           62.9 1003016  9822   219.   728</span>
-<span class="co">#&gt;  8           58.0 1014646  9044   232.   842</span>
-<span class="co">#&gt;  9           51.4 1004772  8065   351.  1189</span>
-<span class="co">#&gt; 10           37.9 1006906  6274. 1258.  5894</span></code></pre></div>
+<span class="co">#&gt;  1          100   1007503 16148  1052.  4267</span>
+<span class="co">#&gt;  2           87.5 1009650 14257   331.  1212</span>
+<span class="co">#&gt;  3           80.0 1013375 12950.  282.   956</span>
+<span class="co">#&gt;  4           74.6 1005535 12069   224.   785</span>
+<span class="co">#&gt;  5           70.5 1007612 11450.  209.   721</span>
+<span class="co">#&gt;  6           65.4 1008870 10601   259.   856</span>
+<span class="co">#&gt;  7           60.5 1002779  9842.  227.   751</span>
+<span class="co">#&gt;  8           55.2 1004550  8959   280.   948</span>
+<span class="co">#&gt;  9           48.0 1007214  7819   396.  1338</span>
+<span class="co">#&gt; 10           34.4 1006402  5906. 1275.  6241</span></code></pre></div>
 </div>
   </div>
 
