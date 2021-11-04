@@ -55,7 +55,7 @@ usethis::use_package("lubridate")
 
 usethis::use_package("badger", type = "Suggests")
 
-usethis::use_vignette("MakeTidyBins")
+usethis::use_vignette("tidybins")
 
 usethis::use_r("add_clusters")
 # edit R profile ----------------------------------------------------------

@@ -1,5 +1,6 @@
 template:
   params:
+    bootstrap: 5
     bootswatch: united
     ganalytics: G-Z4FGL6BTP7
 
@@ -24,7 +25,7 @@ reference:
 articles:
 - title: All vignettes
   desc: null
-  contents: '`MakeTidyBins`'
+  contents: '`tidybins`'
 navbar:
   structure:
     left:

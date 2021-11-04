@@ -1,8 +1,8 @@
 ---
-title: "MakeTidyBins"
+title: "tidybins"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{MakeTidyBins}
+  %\VignetteIndexEntry{tidybins}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

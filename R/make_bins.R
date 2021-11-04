@@ -118,7 +118,7 @@ if(any(bin_type %in% c("xgboost", "woe", "logreg"))){
                    mdlp         = "md"
     )
 
-    my_form <- .data %>% tidy_formula(!!target1, tidyselect::any_of(bin_cols_string))
+    my_form <- .data %>% autostats::tidy_formula(!!target1, tidyselect::any_of(bin_cols_string))
 
 
     .data %>%
@@ -196,7 +196,7 @@ if(any(bin_type %in% c("xgboost", "woe", "logreg"))){
 if("logreg" %in% bin_type){
 
   .data %>% dplyr::pull(!!target1) %>% dplyr::n_distinct() -> n_levels
-  my_form <- .data %>% tidy_formula(!!target1, tidyselect::any_of(bin_cols_string))
+  my_form <- .data %>% autostats::tidy_formula(!!target1, tidyselect::any_of(bin_cols_string))
   OneR::optbin(my_form, .data) -> optbins
   optbins %>% dplyr::select(-!!target1) %>% dplyr::rename_with(.fn = ~stringr::str_c(., "_", "lr", n_levels)) -> opt_bins
   .data %>% dplyr::bind_cols(opt_bins) -> .data
