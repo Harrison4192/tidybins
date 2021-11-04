@@ -2,6 +2,6 @@ pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
-  MakeTidyBins: MakeTidyBins.html
-last_built: 2021-10-14T09:29Z
+  tidybins: tidybins.html
+last_built: 2021-11-04T14:33Z
 
