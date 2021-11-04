@@ -112,55 +112,52 @@
 
 <span class="va">sales_data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/bin_cols.html">bin_cols</a></span><span class="op">(</span><span class="va">SALES</span>, bin_type <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">sales_data1</span>
-<span class="co">#&gt; Warning: SALES contains negative values. Negative values are treated as 0.</span>
 
 <span class="va">sales_data1</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 1,000 × 2</span></span>
 <span class="co">#&gt;    SALES SALES_va10</span>
 <span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> <span style="text-decoration: underline;">16</span>072         10</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> <span style="text-decoration: underline;">17</span>478         10</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">4</span>524          1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>523          1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">4</span>467          1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">7</span>426          2</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">7</span>653          2</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> <span style="text-decoration: underline;">10</span>771          5</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> <span style="text-decoration: underline;">10</span>724          5</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> <span style="text-decoration: underline;">12</span>749          8</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> <span style="text-decoration: underline;">15</span>571         10</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> <span style="text-decoration: underline;">16</span>063         10</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> <span style="text-decoration: underline;">12</span>405          7</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">6</span>368          1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">4</span>219          1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">8</span>004          2</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">9</span>027          3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> <span style="text-decoration: underline;">15</span>383         10</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> <span style="text-decoration: underline;">10</span>182          5</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> <span style="text-decoration: underline;">14</span>195          9</span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 990 more rows</span></span></code></pre></div>
 <p>Notice that the sum is equal across bins.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sales_data1</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/bin_summary.html">bin_summary</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>width <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 11 × 14</span></span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 14</span></span>
 <span class="co">#&gt;    column method      n_bins .rank  .min  .mean  .max .count .uniques</span>
 <span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> SALES  equal value     10    10 <span style="text-decoration: underline;">14</span>829 <span style="text-decoration: underline;">16</span>070. <span style="text-decoration: underline;">18</span>783     62       61</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> SALES  equal value     10     9 <span style="text-decoration: underline;">13</span>198 <span style="text-decoration: underline;">13</span>912. <span style="text-decoration: underline;">14</span>825     72       70</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> SALES  equal value     10     8 <span style="text-decoration: underline;">12</span>284 <span style="text-decoration: underline;">12</span>709. <span style="text-decoration: underline;">13</span>125     78       75</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> SALES  equal value     10     7 <span style="text-decoration: underline;">11</span>587 <span style="text-decoration: underline;">11</span>926. <span style="text-decoration: underline;">12</span>238     83       79</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> SALES  equal value     10     6 <span style="text-decoration: underline;">10</span>974 <span style="text-decoration: underline;">11</span>295. <span style="text-decoration: underline;">11</span>576     88       82</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> SALES  equal value     10     5 <span style="text-decoration: underline;">10</span>143 <span style="text-decoration: underline;">10</span>515. <span style="text-decoration: underline;">10</span>964     94       90</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> SALES  equal value     10     4  <span style="text-decoration: underline;">9</span>402  <span style="text-decoration: underline;">9</span>763. <span style="text-decoration: underline;">10</span>141    102       94</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> SALES  equal value     10     3  <span style="text-decoration: underline;">8</span>287  <span style="text-decoration: underline;">8</span>868.  <span style="text-decoration: underline;">9</span>399    112      107</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> SALES  equal value     10     2  <span style="text-decoration: underline;">7</span>197  <span style="text-decoration: underline;">7</span>753.  <span style="text-decoration: underline;">8</span>286    128      114</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> SALES  equal value     10     1   318  <span style="text-decoration: underline;">5</span>487.  <span style="text-decoration: underline;">7</span>196    180      171</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">11</span> SALES  equal value     10     0  -<span style="color: #BB0000;">404</span>  -<span style="color: #BB0000;">404</span>   -<span style="color: #BB0000;">404</span>      1        1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> SALES  equal value     10    10 <span style="text-decoration: underline;">14</span>459 <span style="text-decoration: underline;">15</span>831. <span style="text-decoration: underline;">18</span>909     64       63</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> SALES  equal value     10     9 <span style="text-decoration: underline;">13</span>225 <span style="text-decoration: underline;">13</span>763. <span style="text-decoration: underline;">14</span>414     72       69</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> SALES  equal value     10     8 <span style="text-decoration: underline;">12</span>512 <span style="text-decoration: underline;">12</span>870. <span style="text-decoration: underline;">13</span>224     78       72</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> SALES  equal value     10     7 <span style="text-decoration: underline;">11</span>601 <span style="text-decoration: underline;">12</span>077. <span style="text-decoration: underline;">12</span>499     83       79</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> SALES  equal value     10     6 <span style="text-decoration: underline;">10</span>860 <span style="text-decoration: underline;">11</span>230. <span style="text-decoration: underline;">11</span>594     89       80</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> SALES  equal value     10     5 <span style="text-decoration: underline;">10</span>145 <span style="text-decoration: underline;">10</span>490. <span style="text-decoration: underline;">10</span>859     96       86</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> SALES  equal value     10     4  <span style="text-decoration: underline;">9</span>384  <span style="text-decoration: underline;">9</span>751. <span style="text-decoration: underline;">10</span>140    102       98</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> SALES  equal value     10     3  <span style="text-decoration: underline;">8</span>454  <span style="text-decoration: underline;">8</span>920.  <span style="text-decoration: underline;">9</span>380    113      104</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> SALES  equal value     10     2  <span style="text-decoration: underline;">7</span>256  <span style="text-decoration: underline;">7</span>849.  <span style="text-decoration: underline;">8</span>453    127      119</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> SALES  equal value     10     1    25  <span style="text-decoration: underline;">5</span>669.  <span style="text-decoration: underline;">7</span>202    176      173</span>
 <span class="co">#&gt;    relative_value    .sum   .med   .sd width</span>
 <span class="co">#&gt;             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>         100     <span style="text-decoration: underline;">996</span>338 <span style="text-decoration: underline;">15</span>701  <span style="text-decoration: underline;">1</span>033.  <span style="text-decoration: underline;">3</span>954</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>          86.6  1<span style="text-decoration: underline;">001</span>645 <span style="text-decoration: underline;">13</span>858.  455.  <span style="text-decoration: underline;">1</span>627</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>          79.1   <span style="text-decoration: underline;">991</span>297 <span style="text-decoration: underline;">12</span>682   256.   841</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>          74.2   <span style="text-decoration: underline;">989</span>859 <span style="text-decoration: underline;">11</span>979   199.   651</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>          70.3   <span style="text-decoration: underline;">993</span>979 <span style="text-decoration: underline;">11</span>306.  172.   602</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>          65.4   <span style="text-decoration: underline;">988</span>382 <span style="text-decoration: underline;">10</span>530.  225.   821</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>          60.8   <span style="text-decoration: underline;">995</span>860  <span style="text-decoration: underline;">9</span>774.  219.   739</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>          55.2   <span style="text-decoration: underline;">993</span>266  <span style="text-decoration: underline;">8</span>896.  330.  <span style="text-decoration: underline;">1</span>112</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>          48.2   <span style="text-decoration: underline;">992</span>413  <span style="text-decoration: underline;">7</span>778.  304.  <span style="text-decoration: underline;">1</span>089</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>          34.1   <span style="text-decoration: underline;">987</span>684  <span style="text-decoration: underline;">5</span>878. <span style="text-decoration: underline;">1</span>421.  <span style="text-decoration: underline;">6</span>878</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">11</span>          -<span style="color: #BB0000;">2.51</span>    -<span style="color: #BB0000;">404</span>  -<span style="color: #BB0000;">404</span>    <span style="color: #BB0000;">NA</span>      0</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>          100   1<span style="text-decoration: underline;">013</span>160 <span style="text-decoration: underline;">15</span>384  <span style="text-decoration: underline;">1</span>187.  <span style="text-decoration: underline;">4</span>450</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>           86.9  <span style="text-decoration: underline;">990</span>904 <span style="text-decoration: underline;">13</span>732.  342.  <span style="text-decoration: underline;">1</span>189</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>           81.3 1<span style="text-decoration: underline;">003</span>855 <span style="text-decoration: underline;">12</span>836.  202.   712</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>           76.3 1<span style="text-decoration: underline;">002</span>370 <span style="text-decoration: underline;">12</span>091   265.   898</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>           70.9  <span style="text-decoration: underline;">999</span>428 <span style="text-decoration: underline;">11</span>199   218.   734</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>           66.3 1<span style="text-decoration: underline;">007</span>044 <span style="text-decoration: underline;">10</span>505   203.   714</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>           61.6  <span style="text-decoration: underline;">994</span>630  <span style="text-decoration: underline;">9</span>747   224.   756</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>           56.3 1<span style="text-decoration: underline;">007</span>959  <span style="text-decoration: underline;">8</span>918   287.   926</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>           49.6  <span style="text-decoration: underline;">996</span>866  <span style="text-decoration: underline;">7</span>805   331.  <span style="text-decoration: underline;">1</span>197</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>           35.8  <span style="text-decoration: underline;">997</span>817  <span style="text-decoration: underline;">6</span>084. <span style="text-decoration: underline;">1</span>373.  <span style="text-decoration: underline;">7</span>177</span></code></pre></div>
 </div>
   </div>
 
