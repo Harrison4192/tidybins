@@ -4,7 +4,6 @@
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
-^/Users/Harrison/Desktop/packages/quantileR/_pkgdown\.yml$
 ^README\.Rmd$
 ^LICENSE\.md$
 ^\.github$
