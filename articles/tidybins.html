@@ -25,6 +25,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -64,13 +66,13 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/Harrison4192/tidybins/">
+  <a href="https://github.com/Harrison4192/tidybins/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="https://harrison4192.github.io/TidyConsultant/">TC</a>
+  <a href="https://harrison4192.github.io/TidyConsultant/" class="external-link">TC</a>
 </li>
       </ul>
 </div>
@@ -88,7 +90,7 @@
       <h1 data-toc-skip>tidybins</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/Harrison4192/tidybins/blob/master/vignettes/tidybins.Rmd"><code>vignettes/tidybins.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Harrison4192/tidybins/blob/HEAD/vignettes/tidybins.Rmd" class="external-link"><code>vignettes/tidybins.Rmd</code></a></small>
       <div class="hidden name"><code>tidybins.Rmd</code></div>
 
     </div>
@@ -98,67 +100,64 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://harrison4192.github.io/tidybins/">tidybins</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div id="bin-value" class="section level1">
-<h1 class="hasAnchor">
-<a href="#bin-value" class="anchor"></a>Bin Value</h1>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://harrison4192.github.io/tidybins/" class="external-link">tidybins</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="section level2">
+<h2 id="bin-value">Bin Value<a class="anchor" aria-label="anchor" href="#bin-value"></a>
+</h2>
 <p>Binning by value is the only original binning method implemented in this package. It is inspired by the case in marketing when accounts need to be binned by their sales. For example, creating 10 bins, where each bin represent 10% of all market sales. The first bin contains the highest sales accounts, thus has the small total number of accounts, whereas the last bin contains the smallest sales accounts, thus requiring the most number of accounts per bin to reach 10% of the market sales.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
-<span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>SALES <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">1000L</span>, mean <span class="op">=</span> <span class="fl">10000L</span>, sd <span class="op">=</span> <span class="fl">3000</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">sales_data</span>
+<span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>SALES <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1000L</span>, mean <span class="op">=</span> <span class="fl">10000L</span>, sd <span class="op">=</span> <span class="fl">3000</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">sales_data</span>
 
-<span class="va">sales_data</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> 
+<span class="va">sales_data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/bin_cols.html">bin_cols</a></span><span class="op">(</span><span class="va">SALES</span>, bin_type <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">sales_data1</span>
-<span class="co">#&gt; Warning: SALES contains negative values. Negative values are treated as 0.</span>
 
 <span class="va">sales_data1</span>
-<span class="co">#&gt; # A tibble: 1,000 × 2</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 1,000 × 2</span></span>
 <span class="co">#&gt;    SALES SALES_va10</span>
-<span class="co">#&gt;    &lt;int&gt;      &lt;int&gt;</span>
-<span class="co">#&gt;  1 12445          8</span>
-<span class="co">#&gt;  2 10455          5</span>
-<span class="co">#&gt;  3 13615          9</span>
-<span class="co">#&gt;  4  9607          4</span>
-<span class="co">#&gt;  5 11896          7</span>
-<span class="co">#&gt;  6 13172          9</span>
-<span class="co">#&gt;  7  8071          2</span>
-<span class="co">#&gt;  8  7334          2</span>
-<span class="co">#&gt;  9  9237          3</span>
-<span class="co">#&gt; 10 12114          7</span>
-<span class="co">#&gt; # … with 990 more rows</span></code></pre></div>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">7</span>329          2</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> <span style="text-decoration: underline;">10</span>518          5</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> <span style="text-decoration: underline;">13</span>078          8</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">7</span>592          2</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">9</span>253          4</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> <span style="text-decoration: underline;">13</span>724          9</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> <span style="text-decoration: underline;">16</span>802         10</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> <span style="text-decoration: underline;">13</span>332          8</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> <span style="text-decoration: underline;">11</span>916          7</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> <span style="text-decoration: underline;">10</span>838          5</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 990 more rows</span></span></code></pre></div>
 <p>Notice that the sum is equal across bins.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sales_data1</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/bin_summary.html">bin_summary</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span>width <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 11 × 14</span>
+<code class="sourceCode R"><span class="va">sales_data1</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="../reference/bin_summary.html">bin_summary</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>width <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 14</span></span>
 <span class="co">#&gt;    column method      n_bins .rank  .min  .mean  .max .count .uniques</span>
-<span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;        &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;dbl&gt; &lt;int&gt;  &lt;int&gt;    &lt;int&gt;</span>
-<span class="co">#&gt;  1 SALES  equal value     10    10 14368 15748. 21539     64       62</span>
-<span class="co">#&gt;  2 SALES  equal value     10     9 12997 13601. 14343     73       70</span>
-<span class="co">#&gt;  3 SALES  equal value     10     8 12185 12545. 12991     79       79</span>
-<span class="co">#&gt;  4 SALES  equal value     10     7 11520 11810. 12172     84       81</span>
-<span class="co">#&gt;  5 SALES  equal value     10     6 10790 11141. 11507     91       85</span>
-<span class="co">#&gt;  6 SALES  equal value     10     5 10016 10384. 10785     95       91</span>
-<span class="co">#&gt;  7 SALES  equal value     10     4  9261  9638. 10012    103       93</span>
-<span class="co">#&gt;  8 SALES  equal value     10     3  8417  8875.  9260    112      100</span>
-<span class="co">#&gt;  9 SALES  equal value     10     2  7320  7878.  8397    126      118</span>
-<span class="co">#&gt; 10 SALES  equal value     10     1   101  5776   7299    172      167</span>
-<span class="co">#&gt; 11 SALES  equal value     10     0  -658  -658   -658      1        1</span>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> SALES  equal value     10    10 <span style="text-decoration: underline;">15</span>016 <span style="text-decoration: underline;">16</span>322. <span style="text-decoration: underline;">18</span>895     62       62</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> SALES  equal value     10     9 <span style="text-decoration: underline;">13</span>428 <span style="text-decoration: underline;">14</span>067. <span style="text-decoration: underline;">15</span>010     70       69</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> SALES  equal value     10     8 <span style="text-decoration: underline;">12</span>453 <span style="text-decoration: underline;">12</span>935. <span style="text-decoration: underline;">13</span>427     78       74</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> SALES  equal value     10     7 <span style="text-decoration: underline;">11</span>554 <span style="text-decoration: underline;">11</span>987. <span style="text-decoration: underline;">12</span>445     83       77</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> SALES  equal value     10     6 <span style="text-decoration: underline;">10</span>855 <span style="text-decoration: underline;">11</span>180. <span style="text-decoration: underline;">11</span>544     89       85</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> SALES  equal value     10     5 <span style="text-decoration: underline;">10</span>083 <span style="text-decoration: underline;">10</span>447. <span style="text-decoration: underline;">10</span>849     96       92</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> SALES  equal value     10     4  <span style="text-decoration: underline;">9</span>161  <span style="text-decoration: underline;">9</span>641. <span style="text-decoration: underline;">10</span>072    103       97</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> SALES  equal value     10     3  <span style="text-decoration: underline;">8</span>264  <span style="text-decoration: underline;">8</span>708.  <span style="text-decoration: underline;">9</span>152    115      109</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> SALES  equal value     10     2  <span style="text-decoration: underline;">7</span>216  <span style="text-decoration: underline;">7</span>763.  <span style="text-decoration: underline;">8</span>257    128      122</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> SALES  equal value     10     1    55  <span style="text-decoration: underline;">5</span>652.  <span style="text-decoration: underline;">7</span>189    176      170</span>
 <span class="co">#&gt;    relative_value    .sum   .med   .sd width</span>
-<span class="co">#&gt;             &lt;dbl&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;</span>
-<span class="co">#&gt;  1         100    1007876 15364. 1324.  7171</span>
-<span class="co">#&gt;  2          86.4   992884 13545   381.  1346</span>
-<span class="co">#&gt;  3          79.7   991047 12512   237.   806</span>
-<span class="co">#&gt;  4          75.0   992005 11784.  212.   652</span>
-<span class="co">#&gt;  5          70.7  1013848 11137   214.   717</span>
-<span class="co">#&gt;  6          65.9   986513 10396   227.   769</span>
-<span class="co">#&gt;  7          61.2   992726  9630   229.   751</span>
-<span class="co">#&gt;  8          56.4   994022  8854   242.   843</span>
-<span class="co">#&gt;  9          50.0   992589  7910.  329.  1077</span>
-<span class="co">#&gt; 10          36.7   993472  6163  1381.  7198</span>
-<span class="co">#&gt; 11          -4.18    -658  -658    NA      0</span></code></pre></div>
+<span class="co">#&gt;             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>          100   1<span style="text-decoration: underline;">011</span>944 <span style="text-decoration: underline;">16</span>006.  976.  <span style="text-decoration: underline;">3</span>879</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>           86.2  <span style="text-decoration: underline;">984</span>694 <span style="text-decoration: underline;">13</span>944.  484.  <span style="text-decoration: underline;">1</span>582</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>           79.3 1<span style="text-decoration: underline;">008</span>951 <span style="text-decoration: underline;">12</span>955   299.   974</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>           73.4  <span style="text-decoration: underline;">994</span>957 <span style="text-decoration: underline;">11</span>963   264.   891</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>           68.5  <span style="text-decoration: underline;">994</span>996 <span style="text-decoration: underline;">11</span>157   187.   689</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>           64.0 1<span style="text-decoration: underline;">002</span>907 <span style="text-decoration: underline;">10</span>448   230.   766</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>           59.1  <span style="text-decoration: underline;">993</span>053  <span style="text-decoration: underline;">9</span>625   262.   911</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>           53.4 1<span style="text-decoration: underline;">001</span>436  <span style="text-decoration: underline;">8</span>683   260.   888</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>           47.6  <span style="text-decoration: underline;">993</span>665  <span style="text-decoration: underline;">7</span>743   305.  <span style="text-decoration: underline;">1</span>041</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>           34.6  <span style="text-decoration: underline;">994</span>815  <span style="text-decoration: underline;">6</span>094. <span style="text-decoration: underline;">1</span>421.  <span style="text-decoration: underline;">7</span>134</span></code></pre></div>
 </div>
   </div>
 
@@ -173,11 +172,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Harrison Tietze.</p>
+  <p></p>
+<p>Developed by Harrison Tietze.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -185,6 +186,8 @@
 
   
 
+
+  
 
   </body>
 </html>
