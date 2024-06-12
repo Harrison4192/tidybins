@@ -10,7 +10,6 @@ p_load(rstudioapi, devtools, roxygen2, usethis, pkgdown,
        ymlthis, magrittr, fs, covr, gitcreds, credentials,
        badger, hexSticker, gh, xfun, tidyverse)
 
-
 # add this file to .Rbuildignore ------------------------------------------
 
 
@@ -70,6 +69,9 @@ edit_r_profile()
 use_readme_rmd()
 use_news_md()
 use_mit_license()
+usethis::use_version(which = "patch")
+devtools::submit_cran()
+
 
 
 

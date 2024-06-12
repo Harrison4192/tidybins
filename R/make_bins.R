@@ -7,7 +7,7 @@
 #'
 #' Description of the arguments for bin_type
 #'
-#' \itemize{
+#' \describe{
 #'   \item{\emph{frequency (fr)}}{ creates bins of equal content via quantiles. Wraps \code{\link[OneR]{bin}} with method "content". Similar to  \code{\link[dplyr]{ntile}}}
 #'   \item{\emph{width (wi)}}{ create bins of equal numeric width. Wraps \code{\link[OneR]{bin}} with method "length"}
 #'   \item{\emph{kmeans (km)}}{ create bins using 1-dimensional kmeans. Wraps \code{\link[OneR]{bin}} with method "clusters"}
@@ -172,7 +172,7 @@ if(any(bin_type %in% c("xgboost", "woe", "logreg"))){
     rec1 <- recipes::recipe(myform, data = .data)
 
     if(!use_cart){
-      rec2 <- embed::step_discretize_xgb(rec1, tidyselect::any_of(bin_cols_string), outcome = outcome1, num_breaks = n_bins, ..., verbose = 0)
+      rec2 <- embed::step_discretize_xgb(rec1, tidyselect::any_of(bin_cols_string), outcome = outcome1, num_breaks = n_bins, ...)
       abbv <- "xg"
     } else{
       rec2 <- embed::step_discretize_cart(rec1, tidyselect::any_of(bin_cols_string), outcome = outcome1, ...)

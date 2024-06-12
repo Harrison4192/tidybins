@@ -46,7 +46,7 @@ optimally with respect to a target variable.
 \details{
 Description of the arguments for bin_type
 
-\itemize{
+\describe{
   \item{\emph{frequency (fr)}}{ creates bins of equal content via quantiles. Wraps \code{\link[OneR]{bin}} with method "content". Similar to  \code{\link[dplyr]{ntile}}}
   \item{\emph{width (wi)}}{ create bins of equal numeric width. Wraps \code{\link[OneR]{bin}} with method "length"}
   \item{\emph{kmeans (km)}}{ create bins using 1-dimensional kmeans. Wraps \code{\link[OneR]{bin}} with method "clusters"}
