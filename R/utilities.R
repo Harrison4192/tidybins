@@ -15,7 +15,7 @@ rename_bin_lens <- function(bin_df, abbv, cols){
 
   bin_df %>%
     dplyr::summarize(dplyr::across(.cols = cols, .fns =  ~dplyr::n_distinct(framecleaner::filter_missing(.)))) %>%
-    purrr::map_chr(1) %>%
+    purrr::map_chr(function(x) as.character(x[[1]])) %>%
     stringr::str_c("_", abbv, .) -> bin_lens
 
 
@@ -47,4 +47,3 @@ oner_wrapper <- function(bin_cols, .data, abbv, bin_method, n_bins = n_bins, pre
 
   .data %>% make_pretty(abbv = abbv, pretty_labels = pretty_labels)
 }
-
