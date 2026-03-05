@@ -1,3 +1,5 @@
+# tidybins 0.1.2
+
 # tidybins 0.1.1
 
 # tidyBins 0.1.0
