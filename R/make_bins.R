@@ -143,7 +143,9 @@ if(any(bin_type %in% c("xgboost", "woe", "logreg"))){
 
     .data %>%
       dplyr::summarize(dplyr::across(tidyselect::matches("\\.binned$"), dplyr::n_distinct)) %>%
-      purrr::map_chr(1) %>%
+      purrr::map(1) %>%
+      unlist %>%
+      as.character() %>%
       stringr::str_c("_wo", .) -> bin_lens
 
 

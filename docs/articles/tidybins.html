@@ -6,13 +6,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>tidybins • tidybins</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="tidybins">
-<meta property="og:description" content="tidybins">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -25,7 +24,7 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -39,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidybins</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -48,7 +47,7 @@
 <li>
   <a href="../index.html">
     <span class="fas fa-home fa-lg"></span>
-     
+
   </a>
 </li>
 <li>
@@ -68,7 +67,7 @@
 <li>
   <a href="https://github.com/Harrison4192/tidybins/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
 <li>
@@ -82,7 +81,7 @@
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
@@ -98,74 +97,79 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://harrison4192.github.io/tidybins/" class="external-link">tidybins</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div class="section level1">
-<h1 id="bin-value">Bin Value<a class="anchor" aria-label="anchor" href="#bin-value"></a>
-</h1>
-<p>Binning by value is the only original binning method implemented in this package. It is inspired by the case in marketing when accounts need to be binned by their sales. For example, creating 10 bins, where each bin represent 10% of all market sales. The first bin contains the highest sales accounts, thus has the small total number of accounts, whereas the last bin contains the smallest sales accounts, thus requiring the most number of accounts per bin to reach 10% of the market sales.</p>
+<code class="sourceCode R"><span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://harrison4192.github.io/tidybins/" class="external-link">tidybins</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="section level2">
+<h2 id="bin-value">Bin Value<a class="anchor" aria-label="anchor" href="#bin-value"></a>
+</h2>
+<p>Binning by value is the only original binning method implemented in
+this package. It is inspired by the case in marketing when accounts need
+to be binned by their sales. For example, creating 10 bins, where each
+bin represent 10% of all market sales. The first bin contains the
+highest sales accounts, thus has the small total number of accounts,
+whereas the last bin contains the smallest sales accounts, thus
+requiring the most number of accounts per bin to reach 10% of the market
+sales.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>SALES <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1000L</span>, mean <span class="op">=</span> <span class="fl">10000L</span>, sd <span class="op">=</span> <span class="fl">3000</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">sales_data</span>
-
-<span class="va">sales_data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/bin_cols.html">bin_cols</a></span><span class="op">(</span><span class="va">SALES</span>, bin_type <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">sales_data1</span>
-
-<span class="va">sales_data1</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 1,000 × 2</span></span>
-<span class="co">#&gt;    SALES SALES_va10</span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> <span style="text-decoration: underline;">15</span>571         10</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> <span style="text-decoration: underline;">16</span>063         10</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> <span style="text-decoration: underline;">12</span>405          7</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">6</span>368          1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">4</span>219          1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">8</span>004          2</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">9</span>027          3</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> <span style="text-decoration: underline;">15</span>383         10</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> <span style="text-decoration: underline;">10</span>182          5</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> <span style="text-decoration: underline;">14</span>195          9</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 990 more rows</span></span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>SALES <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1000L</span>, mean <span class="op">=</span> <span class="fl">10000L</span>, sd <span class="op">=</span> <span class="fl">3000</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">sales_data</span></span>
+<span></span>
+<span><span class="va">sales_data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/bin_cols.html">bin_cols</a></span><span class="op">(</span><span class="va">SALES</span>, bin_type <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">sales_data1</span></span>
+<span></span>
+<span><span class="va">sales_data1</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1,000 × 2</span></span></span>
+<span><span class="co">#&gt;    SALES SALES_va10</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">5</span>799          1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> <span style="text-decoration: underline;">10</span>765          5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>688          1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">9</span>983          4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> <span style="text-decoration: underline;">11</span>864          7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> <span style="text-decoration: underline;">13</span>445          9</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">4</span>534          1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">9</span>258          3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">9</span>267          3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">9</span>151          3</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 990 more rows</span></span></span></code></pre></div>
 <p>Notice that the sum is equal across bins.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sales_data1</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/bin_summary.html">bin_summary</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>width <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 14</span></span>
-<span class="co">#&gt;    column method      n_bins .rank  .min  .mean  .max .count .uniques</span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> SALES  equal value     10    10 <span style="text-decoration: underline;">14</span>459 <span style="text-decoration: underline;">15</span>831. <span style="text-decoration: underline;">18</span>909     64       63</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> SALES  equal value     10     9 <span style="text-decoration: underline;">13</span>225 <span style="text-decoration: underline;">13</span>763. <span style="text-decoration: underline;">14</span>414     72       69</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> SALES  equal value     10     8 <span style="text-decoration: underline;">12</span>512 <span style="text-decoration: underline;">12</span>870. <span style="text-decoration: underline;">13</span>224     78       72</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> SALES  equal value     10     7 <span style="text-decoration: underline;">11</span>601 <span style="text-decoration: underline;">12</span>077. <span style="text-decoration: underline;">12</span>499     83       79</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> SALES  equal value     10     6 <span style="text-decoration: underline;">10</span>860 <span style="text-decoration: underline;">11</span>230. <span style="text-decoration: underline;">11</span>594     89       80</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> SALES  equal value     10     5 <span style="text-decoration: underline;">10</span>145 <span style="text-decoration: underline;">10</span>490. <span style="text-decoration: underline;">10</span>859     96       86</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> SALES  equal value     10     4  <span style="text-decoration: underline;">9</span>384  <span style="text-decoration: underline;">9</span>751. <span style="text-decoration: underline;">10</span>140    102       98</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> SALES  equal value     10     3  <span style="text-decoration: underline;">8</span>454  <span style="text-decoration: underline;">8</span>920.  <span style="text-decoration: underline;">9</span>380    113      104</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> SALES  equal value     10     2  <span style="text-decoration: underline;">7</span>256  <span style="text-decoration: underline;">7</span>849.  <span style="text-decoration: underline;">8</span>453    127      119</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> SALES  equal value     10     1    25  <span style="text-decoration: underline;">5</span>669.  <span style="text-decoration: underline;">7</span>202    176      173</span>
-<span class="co">#&gt;    relative_value    .sum   .med   .sd width</span>
-<span class="co">#&gt;             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>          100   1<span style="text-decoration: underline;">013</span>160 <span style="text-decoration: underline;">15</span>384  <span style="text-decoration: underline;">1</span>187.  <span style="text-decoration: underline;">4</span>450</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>           86.9  <span style="text-decoration: underline;">990</span>904 <span style="text-decoration: underline;">13</span>732.  342.  <span style="text-decoration: underline;">1</span>189</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>           81.3 1<span style="text-decoration: underline;">003</span>855 <span style="text-decoration: underline;">12</span>836.  202.   712</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>           76.3 1<span style="text-decoration: underline;">002</span>370 <span style="text-decoration: underline;">12</span>091   265.   898</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>           70.9  <span style="text-decoration: underline;">999</span>428 <span style="text-decoration: underline;">11</span>199   218.   734</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>           66.3 1<span style="text-decoration: underline;">007</span>044 <span style="text-decoration: underline;">10</span>505   203.   714</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>           61.6  <span style="text-decoration: underline;">994</span>630  <span style="text-decoration: underline;">9</span>747   224.   756</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>           56.3 1<span style="text-decoration: underline;">007</span>959  <span style="text-decoration: underline;">8</span>918   287.   926</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>           49.6  <span style="text-decoration: underline;">996</span>866  <span style="text-decoration: underline;">7</span>805   331.  <span style="text-decoration: underline;">1</span>197</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>           35.8  <span style="text-decoration: underline;">997</span>817  <span style="text-decoration: underline;">6</span>084. <span style="text-decoration: underline;">1</span>373.  <span style="text-decoration: underline;">7</span>177</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">sales_data1</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/bin_summary.html">bin_summary</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>width <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 14</span></span></span>
+<span><span class="co">#&gt;    column method      n_bins .rank  .min  .mean  .max .count .uniques</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> SALES  equal value     10    10 <span style="text-decoration: underline;">14</span>542 <span style="text-decoration: underline;">15</span>893. <span style="text-decoration: underline;">18</span>266     63       63</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> SALES  equal value     10     9 <span style="text-decoration: underline;">13</span>383 <span style="text-decoration: underline;">13</span>882. <span style="text-decoration: underline;">14</span>517     73       72</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> SALES  equal value     10     8 <span style="text-decoration: underline;">12</span>413 <span style="text-decoration: underline;">12</span>886. <span style="text-decoration: underline;">13</span>371     77       75</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> SALES  equal value     10     7 <span style="text-decoration: underline;">11</span>648 <span style="text-decoration: underline;">11</span>977. <span style="text-decoration: underline;">12</span>409     84       76</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> SALES  equal value     10     6 <span style="text-decoration: underline;">10</span>967 <span style="text-decoration: underline;">11</span>303. <span style="text-decoration: underline;">11</span>628     88       84</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> SALES  equal value     10     5 <span style="text-decoration: underline;">10</span>172 <span style="text-decoration: underline;">10</span>543. <span style="text-decoration: underline;">10</span>931     95       92</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> SALES  equal value     10     4  <span style="text-decoration: underline;">9</span>392  <span style="text-decoration: underline;">9</span>780. <span style="text-decoration: underline;">10</span>170    103       92</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> SALES  equal value     10     3  <span style="text-decoration: underline;">8</span>437  <span style="text-decoration: underline;">8</span>919.  <span style="text-decoration: underline;">9</span>390    112      109</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> SALES  equal value     10     2  <span style="text-decoration: underline;">7</span>209  <span style="text-decoration: underline;">7</span>831.  <span style="text-decoration: underline;">8</span>433    128      121</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> SALES  equal value     10     1  <span style="text-decoration: underline;">1</span>183  <span style="text-decoration: underline;">5</span>619.  <span style="text-decoration: underline;">7</span>192    177      175</span></span>
+<span><span class="co">#&gt;    relative_value    .sum   .med   .sd width</span></span>
+<span><span class="co">#&gt;             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>          100   1<span style="text-decoration: underline;">001</span>276 <span style="text-decoration: underline;">15</span>680   976.  <span style="text-decoration: underline;">3</span>724</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>           87.3 1<span style="text-decoration: underline;">013</span>395 <span style="text-decoration: underline;">13</span>952   337.  <span style="text-decoration: underline;">1</span>134</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>           81.1  <span style="text-decoration: underline;">992</span>256 <span style="text-decoration: underline;">12</span>844   274.   958</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>           75.4 1<span style="text-decoration: underline;">006</span>086 <span style="text-decoration: underline;">11</span>954   230.   761</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>           71.1  <span style="text-decoration: underline;">994</span>661 <span style="text-decoration: underline;">11</span>294   196.   661</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>           66.3 1<span style="text-decoration: underline;">001</span>628 <span style="text-decoration: underline;">10</span>564   232.   759</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>           61.5 1<span style="text-decoration: underline;">007</span>305  <span style="text-decoration: underline;">9</span>759   226.   778</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>           56.1  <span style="text-decoration: underline;">998</span>973  <span style="text-decoration: underline;">8</span>930.  288.   953</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>           49.3 1<span style="text-decoration: underline;">002</span>319  <span style="text-decoration: underline;">7</span>850.  364.  <span style="text-decoration: underline;">1</span>224</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>           35.4  <span style="text-decoration: underline;">994</span>631  <span style="text-decoration: underline;">5</span>866  <span style="text-decoration: underline;">1</span>314.  <span style="text-decoration: underline;">6</span>009</span></span></code></pre></div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
@@ -178,16 +182,16 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>

@@ -15,8 +15,11 @@ rename_bin_lens <- function(bin_df, abbv, cols){
 
   bin_df %>%
     dplyr::summarize(dplyr::across(.cols = cols, .fns =  ~dplyr::n_distinct(framecleaner::filter_missing(.)))) %>%
-    purrr::map_chr(1) %>%
+  purrr::map(1) %>%
+    unlist %>%
+    as.character() %>%
     stringr::str_c("_", abbv, .) -> bin_lens
+
 
 
   bin_df %>%
